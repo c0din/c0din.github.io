@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+@theme {
+  --color-neon-pink: #ff00ff;
+  --color-neon-blue: #00f2ff;
+  --color-stoic-teal: #7fdbff;
+
+  --font-sans: 'Montserrat', sans-serif;
+}
+
+/* Scanline overlay effect */
+.scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-stoic-teal);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-neon-pink);
+  border-radius: 10px;
+}
