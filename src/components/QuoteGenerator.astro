@@ -1,0 +1,57 @@
+---
+// No server-side logic needed for this interactive piece
+---
+
+<div class="flex flex-col items-center justify-center py-12">
+  <div 
+    id="bust-trigger" 
+    class="relative group cursor-pointer transition-transform duration-300 hover:scale-105"
+  >
+    <img 
+      src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Marcus_Aurelius_Louvre_MR453_n01.png" 
+      alt="Marcus Aurelius" 
+      class="w-64 drop-shadow-[0_0_15px_rgba(255,0,255,0.7)] hue-rotate-[280deg] brightness-110"
+    />
+  </div>
+
+  <div id="quote-display" class="mt-8 max-w-lg px-6 text-center transition-opacity duration-500">
+    <p id="quote-text" class="text-xl font-medium leading-relaxed text-slate-800">
+      Click the Emperor to rouse your mind...
+    </p>
+    <span id="quote-source" class="mt-4 block text-xs uppercase tracking-widest opacity-60"></span>
+  </div>
+</div>
+
+<script>
+  let quotes = [];
+
+  async function loadQuotes() {
+    try {
+      const res = await fetch('/meditations.json');
+      quotes = await res.json();
+    } catch (e) {
+      console.error("Failed to load meditations.json", e);
+    }
+  }
+
+  function updateQuote() {
+    if (quotes.length === 0) return;
+    
+    const display = document.getElementById('quote-display');
+    const text = document.getElementById('quote-text');
+    const source = document.getElementById('quote-source');
+
+    display.style.opacity = '0';
+
+    setTimeout(() => {
+      const random = quotes[Math.floor(Math.random() * quotes.length)];
+      text.innerText = `"${random.english}"`;
+      source.innerText = `— Book ${random.book}, Verse ${random.verse}`;
+      display.style.opacity = '1';
+    }, 400);
+  }
+
+  // Initialize
+  loadQuotes();
+  document.getElementById('bust-trigger').addEventListener('click', updateQuote);
+</script>
