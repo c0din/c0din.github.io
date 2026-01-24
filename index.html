@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoic Meditations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-teal: #80ced6;
+            --neon-pink: #ff00ff;
+            --neon-blue: #00f2ff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Vaporwave Gradient Background */
+            background: linear-gradient(to bottom, #7fdbff 0%, #ff85ff 100%);
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 400px;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        /* The "Head" Button */
+        #marcus-bust {
+            width: 250px;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            /* Applying a neon-like filter to the image */
+            filter: drop-shadow(0 0 10px var(--neon-pink)) hue-rotate(280deg);
+        }
+
+        #marcus-bust:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 20px var(--neon-blue)) hue-rotate(280deg);
+        }
+
+        /* Quote Styling */
+        .quote-box {
+            margin-top: 30px;
+            color: #1a1a1a;
+            line-height: 1.6;
+            min-height: 150px;
+            position: relative;
+        }
+
+        .quote-box::before, .quote-box::after {
+            content: '“';
+            font-size: 5rem;
+            position: absolute;
+            opacity: 0.2;
+            color: #fff;
+        }
+
+        .quote-box::before { top: -40px; left: -20px; }
+        .quote-box::after { content: '”'; bottom: -60px; right: -20px; }
+
+        #quote-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Clouds/Fog Effect (Bottom) */
+        .clouds {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.3);
+            filter: blur(50px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="clouds"></div>
+
+    <div class="container">
+        <img id="marcus-bust" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Marcus_Aurelius_Louvre_MR453_n01.png" alt="Marcus Aurelius">
+        
+        <div class="quote-box">
+            <p id="quote-text">Click Marcus to rouse yourself from sleep...</p>
+        </div>
+    </div>
+
+    <script>
+        const quotes = [
+            "The happiness of your life depends upon the quality of your thoughts.",
+            "Waste no more time arguing about what a good man should be. Be one.",
+            "Everything we hear is an opinion, not a fact. Everything we see is a perspective, not the truth.",
+            "You have power over your mind - not outside events. Realize this, and you will find strength.",
+            "The best revenge is to be unlike him who performed the injury.",
+            "Very little is needed to make a happy life; it is all within yourself, in your way of thinking.",
+            "As when you have roused yourself from sleep and have perceived that they were only dreams that troubled you, now in your waking hours look at these things around you, as you did look at those dreams."
+        ];
+
+        const bust = document.getElementById('marcus-bust');
+        const text = document.getElementById('quote-text');
+
+        bust.addEventListener('click', () => {
+            // Add a little fade out/in effect
+            text.style.opacity = 0;
+            
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                text.innerText = quotes[randomIndex];
+                text.style.opacity = 1;
+            }, 300);
+        });
+    </script>
+</body>
+</html>
