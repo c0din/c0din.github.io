@@ -2,23 +2,19 @@
 // No server-side logic needed for this interactive piece
 ---
 
-<div class="flex flex-col items-center justify-center py-12">
-  <div 
-    id="bust-trigger" 
-    class="relative group cursor-pointer transition-transform duration-300 hover:scale-105"
-  >
-    <img 
-      src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Marcus_Aurelius_Louvre_MR453_n01.png" 
-      alt="Marcus Aurelius" 
-      class="w-64 drop-shadow-[0_0_15px_rgba(255,0,255,0.7)] hue-rotate-[280deg] brightness-110"
+<div class="flex flex-col items-center justify-center py-20">
+  <div id="bust-trigger" class="cursor-pointer transition-transform hover:scale-105">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Marcus_Aurelius_Louvre_MR453_n01.png"
+      class="w-64 drop-shadow-[0_0_20px_#ff00ff] hue-rotate-[280deg]"
+      alt="Marcus Aurelius"
     />
   </div>
-
-  <div id="quote-display" class="mt-8 max-w-lg px-6 text-center transition-opacity duration-500">
-    <p id="quote-text" class="text-xl font-medium leading-relaxed text-slate-800">
-      Click the Emperor to rouse your mind...
+  <div id="quote-display" class="mt-10 text-center transition-opacity duration-500 max-w-lg">
+    <p id="quote-text" class="text-2xl font-bold text-slate-900 leading-snug">
+      "Click the Emperor to begin."
     </p>
-    <span id="quote-source" class="mt-4 block text-xs uppercase tracking-widest opacity-60"></span>
+    <span id="quote-source" class="block mt-4 text-sm uppercase tracking-widest opacity-50"></span>
   </div>
 </div>
 
