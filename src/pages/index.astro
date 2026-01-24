@@ -3,8 +3,33 @@ import Layout from '../layouts/Layout.astro';
 import QuoteGenerator from '../components/QuoteGenerator.astro';
 ---
 
-<Layout title="Stoic Developer">
-	<main class="min-h-screen flex items-center justify-center">
-		<QuoteGenerator />
-	</main>
+<Layout title="c0din | Portfolio">
+  <main>
+    <div id="easter-egg" class="hidden fixed inset-0 z-40 bg-black/90 backdrop-blur-xl items-center justify-center transition-opacity duration-700">
+      <button id="close-egg" class="absolute top-10 right-10 text-white text-4xl opacity-50 hover:opacity-100">&times;</button>
+      <QuoteGenerator />
+    </div>
+  </main>
 </Layout>
+
+<script>
+  let sequence = "";
+  const secretKey = "stoic"; // Type 'stoic' anywhere to reveal
+
+  window.addEventListener('keydown', (e) => {
+    sequence += e.key.toLowerCase();
+    sequence = sequence.slice(-5); // Keep the last 5 characters
+
+    if (sequence === secretKey) {
+      const egg = document.getElementById('easter-egg');
+      egg.classList.remove('hidden');
+      egg.classList.add('flex');
+    }
+  });
+
+  document.getElementById('close-egg').addEventListener('click', () => {
+    const egg = document.getElementById('easter-egg');
+    egg.classList.add('hidden');
+    egg.classList.remove('flex');
+  });
+</script>
