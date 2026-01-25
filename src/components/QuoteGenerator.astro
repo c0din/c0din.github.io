@@ -13,31 +13,31 @@ const philosophers = [
 
 <div class="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar" id="stoic-scroller">
   {philosophers.map((phil, index) => (
-    <section class="h-screen w-full flex flex-col items-center justify-center snap-start relative overflow-hidden px-6" data-philosopher={phil.id}>
+    <section class="h-screen w-full flex flex-col items-center justify-center snap-start relative overflow-hidden px-6 pb-20" data-philosopher={phil.id}>
 
-      <div class="bust-trigger cursor-pointer transition-all duration-700 active:scale-95 group z-20 mt-[-5vh]">
+      <div class="bust-trigger cursor-pointer transition-all duration-700 active:scale-95 group z-20">
         <Image
           src={phil.image}
           alt={phil.name}
-          class="w-64 md:w-80 h-auto transition-transform duration-700 group-hover:scale-105"
+          class="w-56 md:w-72 h-auto transition-transform duration-700 group-hover:scale-105"
           style={`filter: drop-shadow(0 0 15px ${phil.glow})`}
-          width={320}
+          width={288}
         />
       </div>
 
-      <div class="z-20 text-center mt-6">
-        <p class="text-[10px] uppercase tracking-[0.6em] text-slate-900/40 font-black mb-4">{phil.name}</p>
+      <div class="z-20 text-center mt-4">
+        <p class="text-[10px] uppercase tracking-[0.6em] text-slate-900/40 font-black mb-3">{phil.name}</p>
 
-        <!-- Typography-First Navigation - looks like interactive text -->
-        <nav class="flex items-center justify-center gap-1.5 text-[11px] font-medium text-slate-900/50 uppercase tracking-widest leading-none">
-          <select data-nav="work" class="nav-select nav-bold hidden">
+        <!-- Typography-First Navigation - always visible -->
+        <nav class="flex items-center justify-center gap-1.5 text-[11px] font-medium text-slate-900/70 uppercase tracking-widest leading-none">
+          <select data-nav="work" class="nav-select nav-bold">
             <option>Work</option>
           </select>
-          <span class="nav-dot opacity-30 px-1 hidden">•</span>
+          <span class="nav-dot opacity-30 px-1">•</span>
           <select data-nav="book" class="nav-select nav-bold">
             <option>Book</option>
           </select>
-          <span class="opacity-30 px-1">•</span>
+          <span class="book-dot opacity-30 px-1">•</span>
           <select data-nav="verse" class="nav-select nav-bold">
             <option>Verse</option>
           </select>
@@ -48,23 +48,21 @@ const philosophers = [
         </nav>
       </div>
 
-      <div class="relative w-full max-w-4xl mt-12 group/quote z-20">
-        <span class="absolute -top-16 -left-8 text-9xl font-serif text-slate-900/5 select-none pointer-events-none">"</span>
-        <span class="absolute -bottom-16 -right-8 text-9xl font-serif text-slate-900/5 select-none pointer-events-none">"</span>
+      <div class="relative w-full max-w-3xl mt-8 group/quote z-20 px-4">
+        <span class="absolute -top-12 -left-4 text-8xl font-serif text-slate-900/5 select-none pointer-events-none">"</span>
+        <span class="absolute -bottom-12 -right-4 text-8xl font-serif text-slate-900/5 select-none pointer-events-none">"</span>
 
-        <button class="copy-btn absolute right-0 -top-8 opacity-0 transition-opacity p-2 text-slate-900/20 hover:text-slate-900" title="Copy Quote" aria-label="Copy quote to clipboard">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <button class="copy-btn absolute right-0 -top-6 opacity-0 transition-opacity p-2 text-slate-900/20 hover:text-slate-900" title="Copy Quote" aria-label="Copy quote to clipboard">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         </button>
 
-        <div class="quote-area flex flex-col items-center overflow-y-auto max-h-[40vh] px-4 invisible-scrollbar transition-opacity duration-500">
-          <p class="quote-text text-2xl md:text-4xl text-slate-900 font-light tracking-tight leading-tight md:leading-snug text-center"></p>
+        <div class="quote-area flex flex-col items-center overflow-y-auto max-h-[28vh] md:max-h-[32vh] px-2 invisible-scrollbar">
+          <p class="quote-text text-xl md:text-3xl text-slate-900 font-light tracking-tight leading-relaxed md:leading-relaxed text-center"></p>
         </div>
       </div>
 
-      <div class="absolute bottom-0 left-0 w-full h-[35vh] bg-gradient-to-t from-white/60 to-transparent pointer-events-none z-10"></div>
-
-      <div class="scroll-hint absolute bottom-8 text-slate-900/20 text-[10px] animate-bounce uppercase tracking-widest font-bold z-20">
-        {index === 0 ? '↓ swipe' : index === philosophers.length - 1 ? '↑ swipe' : '↑↓'}
+      <div class="scroll-hint absolute bottom-6 text-slate-900/30 text-[10px] animate-bounce uppercase tracking-widest font-bold z-20">
+        {index === 0 ? '↓ scroll' : index === philosophers.length - 1 ? '↑ scroll' : '↑↓'}
       </div>
     </section>
   ))}
@@ -209,28 +207,25 @@ const philosophers = [
     const workSel = section.querySelector('[data-nav="work"]');
     const workDot = section.querySelector('.nav-dot');
     const bookSel = section.querySelector('[data-nav="book"]');
+    const bookDot = section.querySelector('.book-dot');
     const verseSel = section.querySelector('[data-nav="verse"]');
     const transSel = section.querySelector('[data-nav="translation"]');
 
-    // Handle Work selector for multi-work philosophers
-    const works = metadata.works;
-    if (works && works.length > 1) {
-      workSel.style.display = 'inline-block';
-      workDot.style.display = 'inline';
-      workSel.innerHTML = works.map(w =>
-        `<option value="${w}" ${w == philState.work ? 'selected' : ''}>${w}</option>`
-      ).join('');
+    // Always show Work selector - API now provides defaults for all philosophers
+    const works = metadata.works || ['Works'];
+    workSel.style.display = 'inline-block';
+    workDot.style.display = 'inline';
+    workSel.innerHTML = works.map(w =>
+      `<option value="${w}" ${w == philState.work ? 'selected' : ''}>${w}</option>`
+    ).join('');
 
-      // Set default work if not set
-      if (!philState.work) philState.work = works[0];
-    } else {
-      workSel.style.display = 'none';
-      workDot.style.display = 'none';
-    }
+    // Set default work if not set
+    if (!philState.work) philState.work = works[0];
 
-    // Filter entries by current work (if applicable)
+    // Filter entries by current work (for multi-work philosophers with work field)
     let filteredEntries = entries;
-    if (philState.work) {
+    const hasWorkField = entries.some(e => e.work);
+    if (hasWorkField && philState.work) {
       filteredEntries = entries.filter(e => e.work === philState.work);
     }
 
@@ -239,6 +234,7 @@ const philosophers = [
 
     if (books.length > 0) {
       bookSel.style.display = 'inline-block';
+      if (bookDot) bookDot.style.display = 'inline';
       bookSel.innerHTML = books.map(b => {
         const label = typeof b === 'number' || !isNaN(parseInt(b)) ? `Book ${b}` : b;
         return `<option value="${b}" ${b == philState.book ? 'selected' : ''}>${label}</option>`;
@@ -251,6 +247,7 @@ const philosophers = [
     } else {
       // No books (e.g., Enchiridion chapters directly)
       bookSel.style.display = 'none';
+      if (bookDot) bookDot.style.display = 'none';
       philState.book = null;
     }
 

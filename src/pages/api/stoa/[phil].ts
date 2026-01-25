@@ -68,13 +68,22 @@ export const GET: APIRoute = ({ params, url }) => {
     });
   }
 
-  // Extract unique works for metadata
-  const works = [...new Set(data.map(e => e.work).filter(Boolean))];
+  // Extract unique works for metadata, with defaults for single-work philosophers
+  const worksFromData = [...new Set(data.map(e => e.work).filter(Boolean))];
+
+  // Default work names for philosophers without work field in entries
+  const defaultWorks: Record<string, string[]> = {
+    marcus: ['Meditations'],
+    epictetus: ['Enchiridion', 'Discourses'],
+    seneca: ['Letters to Lucilius', 'Essays']
+  };
+
+  const works = worksFromData.length > 0 ? worksFromData : (defaultWorks[phil as string] || ['Works']);
 
   // Return with metadata wrapper for QuoteGenerator compatibility
   return new Response(JSON.stringify({
     metadata: {
-      works: works.length > 0 ? works : null,
+      works,
       translations: { english: 'Default' },
       defaultTranslation: 'english'
     },
