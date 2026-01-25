@@ -1,33 +1,33 @@
 ---
 // Scroll-based Stoic Quote Generator
 // Scroll/swipe between philosophers to see their wisdom
+import { Image } from 'astro:assets';
 
-// When you have local images, uncomment these imports and update the philosophers array:
-// import { Image } from 'astro:assets';
-// import marcusImg from '../assets/images/marcus.png';
-// import epictetusImg from '../assets/images/epictetus.png';
-// import senecaImg from '../assets/images/seneca.png';
+// Import optimized images from src/assets/images/
+import marcusImg from '../assets/images/marcus.png';
+import epictetusImg from '../assets/images/epictetus.png';
+import senecaImg from '../assets/images/seneca.png';
 
 const philosophers = [
   {
     id: 'marcus',
     name: 'Marcus Aurelius',
     title: 'the Emperor',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Marcus_Aurelius_Louvre_MR453_n01.png',
+    image: marcusImg,
     glowClass: 'glow-marcus'
   },
   {
     id: 'epictetus',
     name: 'Epictetus',
     title: 'the Teacher',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/0/00/Epictetus.jpg',
+    image: epictetusImg,
     glowClass: 'glow-epictetus'
   },
   {
     id: 'seneca',
     name: 'Seneca',
     title: 'the Advisor',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Seneca-berlinantikensammlung-1.jpg',
+    image: senecaImg,
     glowClass: 'glow-seneca'
   }
 ];
@@ -37,10 +37,11 @@ const philosophers = [
   {philosophers.map((phil, index) => (
     <section class="h-full w-full flex flex-col items-center justify-center snap-start py-8" data-philosopher={phil.id}>
       <div class="bust-container cursor-pointer transition-all active:scale-95 group">
-        <img
+        <Image
           src={phil.image}
           alt={phil.name}
-          class={`w-48 transition-transform group-hover:scale-105 ${phil.glowClass}`}
+          class={`w-48 h-auto transition-transform group-hover:scale-105 ${phil.glowClass}`}
+          width={192}
         />
       </div>
       <p class="mt-2 text-sm uppercase tracking-widest text-white/70">{phil.name}</p>
@@ -84,10 +85,20 @@ const philosophers = [
 </style>
 
 <script>
+  // JSON sources organized in public/assets/stoa/
   const sources = {
-    marcus: { url: '/meditations.json', sourceFormat: (q) => `— Meditations, Book ${q.book}, Verse ${q.verse}` },
-    epictetus: { url: '/epictetus.json', sourceFormat: (q) => `— ${q.work}, ${q.chapter || q.section || ''}` },
-    seneca: { url: '/seneca.json', sourceFormat: (q) => `— ${q.work}, ${q.letter ? `Letter ${q.letter}` : q.chapter || ''}` }
+    marcus: {
+      url: '/assets/stoa/meditations.json',
+      sourceFormat: (q) => `— Meditations, Book ${q.book}, Verse ${q.verse}`
+    },
+    epictetus: {
+      url: '/assets/stoa/epictetus.json',
+      sourceFormat: (q) => `— ${q.work}, ${q.chapter || q.section || ''}`
+    },
+    seneca: {
+      url: '/assets/stoa/seneca.json',
+      sourceFormat: (q) => `— ${q.work}, ${q.letter ? `Letter ${q.letter}` : q.chapter || ''}`
+    }
   };
 
   const data = {};
