@@ -439,4 +439,31 @@ const philosophers = [
 
   // Load initial data and render first philosopher
   render('marcus', true);
+
+  // Parallax cloud effect on scroll
+  const scroller = document.getElementById('stoic-scroller');
+  const cloudsLayer = document.getElementById('clouds-layer');
+
+  if (scroller && cloudsLayer) {
+    let ticking = false;
+
+    scroller.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = scroller.scrollTop;
+          const maxScroll = scroller.scrollHeight - scroller.clientHeight;
+          const scrollProgress = scrollY / maxScroll;
+
+          // Parallax: clouds move at 20% of scroll speed, with subtle X drift
+          const yOffset = scrollProgress * 30; // Max 30vh vertical shift
+          const xOffset = Math.sin(scrollProgress * Math.PI) * 5; // Subtle horizontal wave
+
+          cloudsLayer.style.transform = `translate(${xOffset}vw, ${yOffset}vh)`;
+
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
 </script>

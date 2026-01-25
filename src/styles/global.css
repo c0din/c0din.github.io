@@ -39,3 +39,64 @@
     #f9a8d4 100%     /* pink-300 */
   );
 }
+
+/* Parallax Cloud Layer - CSS-generated clouds */
+.cloud {
+  position: absolute;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+}
+
+.cloud-1 {
+  width: 60vw;
+  height: 30vh;
+  top: 5%;
+  left: -10%;
+  animation: cloud-drift-1 60s ease-in-out infinite;
+}
+
+.cloud-2 {
+  width: 50vw;
+  height: 25vh;
+  top: 20%;
+  right: -15%;
+  animation: cloud-drift-2 45s ease-in-out infinite;
+}
+
+.cloud-3 {
+  width: 70vw;
+  height: 35vh;
+  bottom: 15%;
+  left: 10%;
+  animation: cloud-drift-3 55s ease-in-out infinite;
+}
+
+.cloud-4 {
+  width: 40vw;
+  height: 20vh;
+  bottom: 30%;
+  right: 5%;
+  animation: cloud-drift-4 50s ease-in-out infinite;
+}
+
+/* Subtle ambient cloud drift animations */
+@keyframes cloud-drift-1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(5vw, 2vh); }
+}
+
+@keyframes cloud-drift-2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-4vw, 3vh); }
+}
+
+@keyframes cloud-drift-3 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(3vw, -2vh); }
+}
+
+@keyframes cloud-drift-4 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-5vw, -3vh); }
+}
