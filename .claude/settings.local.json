@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(move:*)",
-      "Bash(move \"c:\\\\Users\\\\Admin\\\\source\\\\repos\\\\c0din.github.io\\\\public\\\\epictetus.json\" \"c:\\\\Users\\\\Admin\\\\source\\\\repos\\\\c0din.github.io\\\\public\\\\assets\\\\stoa\\\\epictetus.json\")"
+      "Bash(move \"c:\\\\Users\\\\Admin\\\\source\\\\repos\\\\c0din.github.io\\\\public\\\\epictetus.json\" \"c:\\\\Users\\\\Admin\\\\source\\\\repos\\\\c0din.github.io\\\\public\\\\assets\\\\stoa\\\\epictetus.json\")",
+      "Bash(npm run build:*)"
     ]
   }
 }

@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import marcusImg from '../assets/images/marcus.png';
+---
+
+<Layout title="404: Lost in the Stoa">
+  <div class="h-screen w-full flex flex-col items-center justify-center p-6 text-center">
+    <div class="glitch-container relative mb-8">
+      <Image
+        src={marcusImg}
+        alt="Marcus Aurelius - Glitched"
+        class="w-64 md:w-80 opacity-50 grayscale glitch-image"
+        width={320}
+      />
+      <Image
+        src={marcusImg}
+        alt=""
+        class="w-64 md:w-80 opacity-30 absolute inset-0 glitch-overlay-r"
+        width={320}
+      />
+      <Image
+        src={marcusImg}
+        alt=""
+        class="w-64 md:w-80 opacity-30 absolute inset-0 glitch-overlay-b"
+        width={320}
+      />
+    </div>
+
+    <h1 class="text-4xl md:text-6xl font-light tracking-tighter text-slate-900 mb-4">PAGE_NOT_FOUND</h1>
+
+    <p class="text-slate-900/40 uppercase tracking-[0.4em] text-[10px] font-black italic max-w-md">
+      "The soul becomes dyed with the color of its thoughts."
+    </p>
+
+    <p class="text-slate-900/20 text-[10px] uppercase tracking-widest mt-2">
+      — Marcus Aurelius, Meditations IV.3
+    </p>
+
+    <a
+      href="/"
+      class="mt-12 px-6 py-2 border border-slate-900/20 rounded-full text-[10px] uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all duration-300"
+    >
+      Return to Reason
+    </a>
+  </div>
+</Layout>
+
+<style>
+  .glitch-container {
+    position: relative;
+  }
+
+  .glitch-image {
+    animation: glitch-base 2s infinite linear alternate-reverse;
+  }
+
+  .glitch-overlay-r {
+    mix-blend-mode: multiply;
+    filter: hue-rotate(90deg);
+    animation: glitch-r 0.3s infinite linear alternate-reverse;
+  }
+
+  .glitch-overlay-b {
+    mix-blend-mode: screen;
+    filter: hue-rotate(-90deg);
+    animation: glitch-b 0.4s infinite linear alternate-reverse;
+  }
+
+  @keyframes glitch-base {
+    0%, 100% {
+      clip-path: inset(0 0 0 0);
+      transform: translate(0);
+    }
+    20% {
+      clip-path: inset(10% 0 30% 0);
+      transform: translate(-2px, 1px);
+    }
+    40% {
+      clip-path: inset(40% 0 10% 0);
+      transform: translate(2px, -1px);
+    }
+    60% {
+      clip-path: inset(20% 0 50% 0);
+      transform: translate(-1px, 2px);
+    }
+    80% {
+      clip-path: inset(60% 0 5% 0);
+      transform: translate(1px, -2px);
+    }
+  }
+
+  @keyframes glitch-r {
+    0%, 100% { transform: translate(0); opacity: 0; }
+    20% { transform: translate(3px, -1px); opacity: 0.3; }
+    40% { transform: translate(-2px, 2px); opacity: 0.2; }
+    60% { transform: translate(4px, 1px); opacity: 0.4; }
+    80% { transform: translate(-3px, -2px); opacity: 0.1; }
+  }
+
+  @keyframes glitch-b {
+    0%, 100% { transform: translate(0); opacity: 0; }
+    25% { transform: translate(-3px, 2px); opacity: 0.3; }
+    50% { transform: translate(2px, -1px); opacity: 0.2; }
+    75% { transform: translate(-4px, -1px); opacity: 0.4; }
+  }
+</style>

@@ -28,7 +28,7 @@ const philosophers = [
       <div class="z-20 text-center mt-6">
         <p class="text-[10px] uppercase tracking-[0.6em] text-slate-900/40 font-black">{phil.name}</p>
 
-        <!-- Navigation Bar -->
+        <!-- Navigation Bar with integrated source citation -->
         <nav class="flex items-center justify-center gap-3 mt-4 text-[10px] font-medium text-slate-900/30 uppercase tracking-widest flex-wrap">
           <select data-nav="work" class="nav-select bg-transparent outline-none cursor-pointer hover:text-slate-900 transition-colors hidden">
             <option>Work</option>
@@ -46,6 +46,9 @@ const philosophers = [
             <option>Translation</option>
           </select>
         </nav>
+
+        <!-- Source citation moved here to avoid bottom collision -->
+        <p class="quote-source text-[9px] uppercase tracking-[0.2em] text-slate-900/20 font-medium mt-3 transition-opacity duration-300"></p>
       </div>
 
       <div class="relative w-full max-w-4xl mt-12 group/quote z-20">
@@ -56,9 +59,8 @@ const philosophers = [
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         </button>
 
-        <div class="quote-area flex flex-col items-center overflow-y-auto max-h-[35vh] px-4 invisible-scrollbar transition-opacity duration-500">
+        <div class="quote-area flex flex-col items-center overflow-y-auto max-h-[40vh] px-4 invisible-scrollbar transition-opacity duration-500">
           <p class="quote-text text-2xl md:text-4xl text-slate-900 font-light tracking-tight leading-tight md:leading-snug text-center"></p>
-          <span class="quote-info block mt-8 text-[10px] uppercase tracking-[0.3em] text-slate-900/30 font-bold"></span>
         </div>
       </div>
 
@@ -264,7 +266,7 @@ const philosophers = [
     const philState = state[philId];
     const quoteArea = section.querySelector('.quote-area');
     const textEl = section.querySelector('.quote-text');
-    const infoEl = section.querySelector('.quote-info');
+    const sourceEl = section.querySelector('.quote-source');
     const copyBtn = section.querySelector('.copy-btn');
 
     // Initialize work if multi-work philosopher
@@ -303,7 +305,7 @@ const philosophers = [
       // Get text with translation fallback
       const text = entry.text?.[philState.translation] || entry.english || entry.text || "Selection not available.";
       textEl.innerText = text;
-      infoEl.innerText = formatSource(entry, philId);
+      sourceEl.innerText = formatSource(entry, philId);
 
       // Fade in
       quoteArea.style.opacity = '1';
@@ -354,8 +356,8 @@ const philosophers = [
     const copyBtn = section.querySelector('.copy-btn');
     copyBtn?.addEventListener('click', async () => {
       const textEl = section.querySelector('.quote-text');
-      const infoEl = section.querySelector('.quote-info');
-      const content = `"${textEl.innerText}"\n— ${infoEl.innerText}`;
+      const sourceEl = section.querySelector('.quote-source');
+      const content = `"${textEl.innerText}"\n— ${sourceEl.innerText}`;
 
       try {
         await navigator.clipboard.writeText(content);
