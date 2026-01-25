@@ -5,9 +5,9 @@ import epictetusImg from '../assets/images/epictetus.png';
 import senecaImg from '../assets/images/seneca.png';
 
 const philosophers = [
-  { id: 'marcus', name: 'Marcus Aurelius', title: 'the Emperor', image: marcusImg, glowClass: 'glow-marcus' },
-  { id: 'epictetus', name: 'Epictetus', title: 'the Teacher', image: epictetusImg, glowClass: 'glow-epictetus' },
-  { id: 'seneca', name: 'Seneca', title: 'the Advisor', image: senecaImg, glowClass: 'glow-seneca' }
+  { id: 'marcus', name: 'Marcus Aurelius', title: 'the Emperor', image: marcusImg, glow: 'rgba(255, 0, 255, 0.5)' },
+  { id: 'epictetus', name: 'Epictetus', title: 'the Teacher', image: epictetusImg, glow: 'rgba(0, 242, 255, 0.4)' },
+  { id: 'seneca', name: 'Seneca', title: 'the Advisor', image: senecaImg, glow: 'rgba(255, 255, 0, 0.3)' }
 ];
 ---
 
@@ -15,35 +15,50 @@ const philosophers = [
   {philosophers.map((phil, index) => (
     <section class="h-screen w-full flex flex-col items-center justify-center snap-start relative overflow-hidden px-6" data-philosopher={phil.id}>
 
-      <div class="bust-container cursor-pointer transition-all duration-500 active:scale-95 group z-20 mt-[-10vh]">
+      <div class="bust-trigger cursor-pointer transition-all duration-700 active:scale-95 group z-20 mt-[-5vh]">
         <Image
           src={phil.image}
           alt={phil.name}
-          class={`w-64 md:w-96 h-auto transition-transform duration-700 group-hover:scale-105 ${phil.glowClass}`}
-          width={384}
+          class="w-64 md:w-80 h-auto transition-transform duration-700 group-hover:scale-105"
+          style={`filter: drop-shadow(0 0 15px ${phil.glow})`}
+          width={320}
         />
       </div>
 
-      <p class="mt-8 text-[10px] uppercase tracking-[0.6em] text-slate-900/40 font-bold z-20">{phil.name}</p>
+      <div class="z-20 text-center mt-6">
+        <p class="text-[10px] uppercase tracking-[0.6em] text-slate-900/40 font-black">{phil.name}</p>
 
-      <div class="relative w-full max-w-3xl mt-12 group/quote z-20">
+        <!-- Navigation Bar -->
+        <nav class="flex items-center justify-center gap-3 mt-4 text-[10px] font-medium text-slate-900/30 uppercase tracking-widest">
+          <select data-nav="book" class="nav-select bg-transparent outline-none cursor-pointer hover:text-slate-900 transition-colors">
+            <option>Book</option>
+          </select>
+          <span class="opacity-30">•</span>
+          <select data-nav="verse" class="nav-select bg-transparent outline-none cursor-pointer hover:text-slate-900 transition-colors">
+            <option>Verse</option>
+          </select>
+          <span class="opacity-30">•</span>
+          <select data-nav="translation" class="nav-select bg-transparent outline-none cursor-pointer hover:text-slate-900 transition-colors">
+            <option>Translation</option>
+          </select>
+        </nav>
+      </div>
 
-        <span class="absolute -top-12 -left-4 md:-left-8 text-8xl md:text-9xl font-serif text-slate-900/5 pointer-events-none select-none">"</span>
-        <span class="absolute -bottom-12 -right-4 md:-right-8 text-8xl md:text-9xl font-serif text-slate-900/5 pointer-events-none select-none">"</span>
+      <div class="relative w-full max-w-4xl mt-12 group/quote z-20">
+        <span class="absolute -top-16 -left-8 text-9xl font-serif text-slate-900/5 select-none pointer-events-none">"</span>
+        <span class="absolute -bottom-16 -right-8 text-9xl font-serif text-slate-900/5 select-none pointer-events-none">"</span>
 
-        <button class="copy-btn absolute right-0 -top-8 z-30 opacity-0 transition-all p-2 text-slate-900/30 hover:text-slate-900" title="Copy Quote" aria-label="Copy quote to clipboard">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <button class="copy-btn absolute right-0 -top-8 opacity-0 transition-opacity p-2 text-slate-900/20 hover:text-slate-900" title="Copy Quote" aria-label="Copy quote to clipboard">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         </button>
 
-        <div class="quote-box flex flex-col items-center overflow-y-auto max-h-[35vh] px-4 invisible-scrollbar">
-          <p class="quote-text text-2xl md:text-4xl text-slate-900 font-light tracking-tight leading-tight md:leading-snug text-center selection:bg-pink-500/30">
-            Click {phil.title} to begin.
-          </p>
-          <span class="quote-source block mt-6 text-[11px] uppercase tracking-[0.2em] text-slate-900/40 text-center font-medium"></span>
+        <div class="quote-area flex flex-col items-center overflow-y-auto max-h-[35vh] px-4 invisible-scrollbar transition-opacity duration-500">
+          <p class="quote-text text-2xl md:text-4xl text-slate-900 font-light tracking-tight leading-tight md:leading-snug text-center"></p>
+          <span class="quote-info block mt-8 text-[10px] uppercase tracking-[0.3em] text-slate-900/30 font-bold"></span>
         </div>
       </div>
 
-      <div class="absolute bottom-0 left-0 w-full h-[40vh] bg-gradient-to-t from-white/60 to-transparent pointer-events-none z-10"></div>
+      <div class="absolute bottom-0 left-0 w-full h-[35vh] bg-gradient-to-t from-white/60 to-transparent pointer-events-none z-10"></div>
 
       <div class="scroll-hint absolute bottom-8 text-slate-900/20 text-[10px] animate-bounce uppercase tracking-widest font-bold z-20">
         {index === 0 ? '↓ swipe' : index === philosophers.length - 1 ? '↑ swipe' : '↑↓'}
@@ -55,17 +70,18 @@ const philosophers = [
 <style is:global>
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .invisible-scrollbar::-webkit-scrollbar { width: 0; }
 
-  /* Marcus: Outer Pink Glow */
-  .glow-marcus { filter: drop-shadow(0 0 15px rgba(255, 0, 255, 0.6)); }
-  .glow-epictetus { filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.5)) hue-rotate(180deg); }
-  .glow-seneca { filter: drop-shadow(0 0 20px rgba(255, 255, 0, 0.4)) sepia(0.3); }
+  /* Navigation selects - minimal styling */
+  .nav-select {
+    appearance: none;
+    -webkit-appearance: none;
+    text-align: center;
+    text-align-last: center;
+    min-width: 4rem;
+  }
 
-  /* Almost invisible quote scrollbar */
-  .invisible-scrollbar::-webkit-scrollbar { width: 2px; }
-  .invisible-scrollbar::-webkit-scrollbar-thumb { background: rgba(15, 23, 42, 0.05); }
-
-  .quote-box { transition: opacity 0.4s ease-in-out; }
+  .quote-area { transition: opacity 0.4s ease-in-out; }
 
   @media (hover: hover) {
     .group\/quote:hover .copy-btn { opacity: 1; }
@@ -74,62 +90,200 @@ const philosophers = [
 </style>
 
 <script>
-  const sources = {
-    marcus: { url: '/assets/stoa/meditations.json', format: (q) => `— Meditations, Book ${q.book}, Verse ${q.verse}` },
-    epictetus: { url: '/assets/stoa/epictetus.json', format: (q) => `— ${q.work || 'Discourses'}, ${q.chapter || q.section || ''}` },
-    seneca: { url: '/assets/stoa/seneca.json', format: (q) => `— ${q.work || 'Letters'}, ${q.letter ? `Letter ${q.letter}` : q.chapter || ''}` }
+  // State management
+  const state = {
+    marcus: { book: 1, verse: 1, translation: 'english' },
+    epictetus: { book: 1, verse: 1, translation: 'english' },
+    seneca: { book: 1, verse: 1, translation: 'english' }
   };
 
-  const data = {};
+  const dataStore = {};
   const isTouch = window.matchMedia("(pointer: coarse)").matches;
 
-  async function init() {
-    for (const [key, config] of Object.entries(sources)) {
-      try {
-        const res = await fetch(config.url);
-        if (res.ok) data[key] = await res.json();
-      } catch (e) { console.warn(`Load error: ${key}`); }
+  const sources = {
+    marcus: '/api/stoa/marcus',
+    epictetus: '/api/stoa/epictetus',
+    seneca: '/api/stoa/seneca'
+  };
+
+  // Load data with schema detection (backward compatible)
+  async function loadData(philId) {
+    if (dataStore[philId]) return dataStore[philId];
+
+    try {
+      const res = await fetch(sources[philId]);
+      const data = await res.json();
+
+      // Phase 1: Detect schema version
+      dataStore[philId] = {
+        entries: data.entries || data,
+        metadata: data.metadata || {
+          translations: { english: 'Default' },
+          defaultTranslation: 'english'
+        }
+      };
+
+      return dataStore[philId];
+    } catch (e) {
+      console.warn(`Load error: ${philId}`);
+      return null;
     }
   }
 
-  const copyIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-  const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  // Update navigation selectors
+  function updateSelectors(section, store, philState) {
+    const { entries, metadata } = store;
+    const bookSel = section.querySelector('[data-nav="book"]');
+    const verseSel = section.querySelector('[data-nav="verse"]');
+    const transSel = section.querySelector('[data-nav="translation"]');
 
-  document.querySelectorAll('section').forEach(section => {
-    const phil = section.getAttribute('data-philosopher');
-    const bust = section.querySelector('.bust-container');
-    const textEl = section.querySelector('.quote-text');
-    const sourceEl = section.querySelector('.quote-source');
-    const quoteBox = section.querySelector('.quote-box');
-    const copyBtn = section.querySelector('.copy-btn');
-
-    bust?.addEventListener('click', () => {
-      const quotes = data[phil];
-      if (!quotes?.length) return;
-
-      quoteBox.style.opacity = '0';
-      if (isTouch) copyBtn?.classList.remove('visible');
-
-      setTimeout(() => {
-        const q = quotes[Math.floor(Math.random() * quotes.length)];
-        textEl.innerText = q.english || q.text || q.quote;
-        sourceEl.innerText = sources[phil].format(q);
-        quoteBox.style.opacity = '1';
-        quoteBox.scrollTop = 0;
-
-        if (isTouch) copyBtn?.classList.add('visible');
-      }, 400);
+    // Get unique books
+    const books = [...new Set(entries.map(e => e.book || e.work))].sort((a, b) => {
+      if (typeof a === 'number') return a - b;
+      return String(a).localeCompare(String(b));
     });
 
+    bookSel.innerHTML = books.map(b => {
+      const label = typeof b === 'number' ? `Book ${b}` : b;
+      return `<option value="${b}" ${b == philState.book ? 'selected' : ''}>${label}</option>`;
+    }).join('');
+
+    // Get verses for current book
+    const currentBookEntries = entries.filter(e => (e.book || e.work) == philState.book);
+    const verses = currentBookEntries.map(e => e.verse || e.chapter || e.letter).filter(Boolean);
+
+    verseSel.innerHTML = verses.map(v =>
+      `<option value="${v}" ${v == philState.verse ? 'selected' : ''}>${v}</option>`
+    ).join('');
+
+    // Translations
+    const translations = metadata.translations;
+    const transKeys = Object.keys(translations);
+
+    if (transKeys.length > 1) {
+      transSel.style.display = 'inline-block';
+      transSel.innerHTML = transKeys.map(key => {
+        const label = translations[key].split(' ')[0]; // First word only
+        return `<option value="${key}" ${key == philState.translation ? 'selected' : ''}>${label}</option>`;
+      }).join('');
+    } else {
+      transSel.style.display = 'none';
+    }
+  }
+
+  // Format source citation
+  function formatSource(entry, philId) {
+    const book = entry.book || entry.work;
+    const verse = entry.verse || entry.chapter || entry.letter;
+
+    switch (philId) {
+      case 'marcus':
+        return `Book ${book} • Verse ${verse}`;
+      case 'epictetus':
+        return `${entry.work || 'Discourses'} • ${verse}`;
+      case 'seneca':
+        return `${entry.work || 'Letters'} • ${entry.letter ? `Letter ${entry.letter}` : verse}`;
+      default:
+        return `${book} • ${verse}`;
+    }
+  }
+
+  // Render quote
+  async function render(philId, random = false) {
+    const section = document.querySelector(`section[data-philosopher="${philId}"]`);
+    const store = await loadData(philId);
+    if (!store) return;
+
+    const { entries } = store;
+    const philState = state[philId];
+    const quoteArea = section.querySelector('.quote-area');
+    const textEl = section.querySelector('.quote-text');
+    const infoEl = section.querySelector('.quote-info');
+    const copyBtn = section.querySelector('.copy-btn');
+
+    let entry;
+
+    if (random) {
+      // Shuffle: pick random entry
+      entry = entries[Math.floor(Math.random() * entries.length)];
+      philState.book = entry.book || entry.work;
+      philState.verse = entry.verse || entry.chapter || entry.letter;
+    } else {
+      // Navigate: find specific entry
+      entry = entries.find(e =>
+        (e.book || e.work) == philState.book &&
+        (e.verse || e.chapter || e.letter) == philState.verse
+      ) || entries[0];
+    }
+
+    // Fade out
+    quoteArea.style.opacity = '0';
+    if (isTouch) copyBtn?.classList.remove('visible');
+
+    setTimeout(() => {
+      // Get text with translation fallback
+      const text = entry.text?.[philState.translation] || entry.english || entry.text || "Selection not available.";
+      textEl.innerText = text;
+      infoEl.innerText = formatSource(entry, philId);
+
+      // Fade in
+      quoteArea.style.opacity = '1';
+      quoteArea.scrollTop = 0;
+
+      // Update selectors
+      updateSelectors(section, store, philState);
+
+      if (isTouch) copyBtn?.classList.add('visible');
+    }, 300);
+  }
+
+  // Copy icons
+  const copyIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+  const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+  // Initialize each section
+  document.querySelectorAll('section').forEach(section => {
+    const philId = section.getAttribute('data-philosopher');
+
+    // Bust click = Shuffle
+    section.querySelector('.bust-trigger')?.addEventListener('click', () => render(philId, true));
+
+    // Navigation selects
+    section.querySelectorAll('.nav-select').forEach(select => {
+      select.addEventListener('change', (e) => {
+        const navType = e.target.dataset.nav;
+        const value = e.target.value;
+
+        if (navType === 'book') {
+          state[philId].book = isNaN(value) ? value : parseInt(value);
+          state[philId].verse = 1; // Reset verse when book changes
+        } else if (navType === 'verse') {
+          state[philId].verse = isNaN(value) ? value : parseInt(value);
+        } else if (navType === 'translation') {
+          state[philId].translation = value;
+        }
+
+        render(philId, false);
+      });
+    });
+
+    // Copy button
+    const copyBtn = section.querySelector('.copy-btn');
     copyBtn?.addEventListener('click', async () => {
-      const content = `${textEl.innerText}\n${sourceEl.innerText}`;
+      const textEl = section.querySelector('.quote-text');
+      const infoEl = section.querySelector('.quote-info');
+      const content = `"${textEl.innerText}"\n— ${infoEl.innerText}`;
+
       try {
         await navigator.clipboard.writeText(content);
         copyBtn.innerHTML = checkIcon;
         setTimeout(() => copyBtn.innerHTML = copyIcon, 2000);
-      } catch (err) { console.error('Copy failed', err); }
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
     });
   });
 
-  init();
+  // Load initial data and render first philosopher
+  render('marcus', true);
 </script>
