@@ -34,16 +34,22 @@ export const GET: APIRoute = ({ params, url }) => {
   }
 
   // Query params for filtering
+  const work = url.searchParams.get('work');
   const book = url.searchParams.get('book');
   const verse = url.searchParams.get('verse');
   const random = url.searchParams.get('random');
 
   let entries = [...data];
 
-  // Filter by book/work
+  // Filter by work (for philosophers with multiple texts)
+  if (work) {
+    entries = entries.filter(e => e.work === work);
+  }
+
+  // Filter by book (numeric for Marcus, or work-based for others)
   if (book) {
     entries = entries.filter(e =>
-      String(e.book || e.work) === book
+      String(e.book) === book
     );
   }
 
@@ -62,9 +68,13 @@ export const GET: APIRoute = ({ params, url }) => {
     });
   }
 
+  // Extract unique works for metadata
+  const works = [...new Set(data.map(e => e.work).filter(Boolean))];
+
   // Return with metadata wrapper for QuoteGenerator compatibility
   return new Response(JSON.stringify({
     metadata: {
+      works: works.length > 0 ? works : null,
       translations: { english: 'Default' },
       defaultTranslation: 'english'
     },

@@ -1,7 +1,7 @@
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import vercel from '@astrojs/vercel/serverless'; // Standard serverless functions
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   output: 'server', // Enables serverless functions by default

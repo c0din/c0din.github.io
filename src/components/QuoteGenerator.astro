@@ -29,7 +29,11 @@ const philosophers = [
         <p class="text-[10px] uppercase tracking-[0.6em] text-slate-900/40 font-black">{phil.name}</p>
 
         <!-- Navigation Bar -->
-        <nav class="flex items-center justify-center gap-3 mt-4 text-[10px] font-medium text-slate-900/30 uppercase tracking-widest">
+        <nav class="flex items-center justify-center gap-3 mt-4 text-[10px] font-medium text-slate-900/30 uppercase tracking-widest flex-wrap">
+          <select data-nav="work" class="nav-select bg-transparent outline-none cursor-pointer hover:text-slate-900 transition-colors hidden">
+            <option>Work</option>
+          </select>
+          <span class="nav-dot opacity-30 hidden">•</span>
           <select data-nav="book" class="nav-select bg-transparent outline-none cursor-pointer hover:text-slate-900 transition-colors">
             <option>Book</option>
           </select>
@@ -72,6 +76,19 @@ const philosophers = [
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   .invisible-scrollbar::-webkit-scrollbar { width: 0; }
 
+  /* Smooth scroll behavior */
+  #stoic-scroller {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Section snap and transition */
+  section[data-philosopher] {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    transition: filter 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  }
+
   /* Navigation selects - minimal styling */
   .nav-select {
     appearance: none;
@@ -90,11 +107,11 @@ const philosophers = [
 </style>
 
 <script>
-  // State management
+  // State management (work is null for single-work philosophers like Marcus)
   const state = {
-    marcus: { book: 1, verse: 1, translation: 'english' },
-    epictetus: { book: 1, verse: 1, translation: 'english' },
-    seneca: { book: 1, verse: 1, translation: 'english' }
+    marcus: { work: null, book: 1, verse: 1, translation: 'english' },
+    epictetus: { work: null, book: null, verse: 1, translation: 'english' },
+    seneca: { work: null, book: null, verse: 1, translation: 'english' }
   };
 
   const dataStore = {};
@@ -130,31 +147,80 @@ const philosophers = [
     }
   }
 
+  // Numeric sort helper
+  function numericSort(a, b) {
+    const numA = parseInt(a, 10);
+    const numB = parseInt(b, 10);
+    if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
+    return String(a).localeCompare(String(b));
+  }
+
   // Update navigation selectors
-  function updateSelectors(section, store, philState) {
+  function updateSelectors(section, store, philState, philId) {
     const { entries, metadata } = store;
+    const workSel = section.querySelector('[data-nav="work"]');
+    const workDot = section.querySelector('.nav-dot');
     const bookSel = section.querySelector('[data-nav="book"]');
     const verseSel = section.querySelector('[data-nav="verse"]');
     const transSel = section.querySelector('[data-nav="translation"]');
 
-    // Get unique books
-    const books = [...new Set(entries.map(e => e.book || e.work))].sort((a, b) => {
-      if (typeof a === 'number') return a - b;
-      return String(a).localeCompare(String(b));
-    });
+    // Handle Work selector for multi-work philosophers
+    const works = metadata.works;
+    if (works && works.length > 1) {
+      workSel.style.display = 'inline-block';
+      workDot.style.display = 'inline';
+      workSel.innerHTML = works.map(w =>
+        `<option value="${w}" ${w == philState.work ? 'selected' : ''}>${w}</option>`
+      ).join('');
 
-    bookSel.innerHTML = books.map(b => {
-      const label = typeof b === 'number' ? `Book ${b}` : b;
-      return `<option value="${b}" ${b == philState.book ? 'selected' : ''}>${label}</option>`;
-    }).join('');
+      // Set default work if not set
+      if (!philState.work) philState.work = works[0];
+    } else {
+      workSel.style.display = 'none';
+      workDot.style.display = 'none';
+    }
 
-    // Get verses for current book
-    const currentBookEntries = entries.filter(e => (e.book || e.work) == philState.book);
-    const verses = currentBookEntries.map(e => e.verse || e.chapter || e.letter).filter(Boolean);
+    // Filter entries by current work (if applicable)
+    let filteredEntries = entries;
+    if (philState.work) {
+      filteredEntries = entries.filter(e => e.work === philState.work);
+    }
+
+    // Get unique books with numeric sort
+    const books = [...new Set(filteredEntries.map(e => e.book).filter(Boolean))].sort(numericSort);
+
+    if (books.length > 0) {
+      bookSel.style.display = 'inline-block';
+      bookSel.innerHTML = books.map(b => {
+        const label = typeof b === 'number' || !isNaN(parseInt(b)) ? `Book ${b}` : b;
+        return `<option value="${b}" ${b == philState.book ? 'selected' : ''}>${label}</option>`;
+      }).join('');
+
+      // Set default book if not set or invalid
+      if (!philState.book || !books.includes(String(philState.book)) && !books.includes(philState.book)) {
+        philState.book = books[0];
+      }
+    } else {
+      // No books (e.g., Enchiridion chapters directly)
+      bookSel.style.display = 'none';
+      philState.book = null;
+    }
+
+    // Get verses for current book/work with numeric sort
+    let currentEntries = filteredEntries;
+    if (philState.book) {
+      currentEntries = filteredEntries.filter(e => String(e.book) === String(philState.book));
+    }
+    const verses = [...new Set(currentEntries.map(e => e.verse || e.chapter || e.letter).filter(Boolean))].sort(numericSort);
 
     verseSel.innerHTML = verses.map(v =>
       `<option value="${v}" ${v == philState.verse ? 'selected' : ''}>${v}</option>`
     ).join('');
+
+    // Set default verse if not set or invalid
+    if (!philState.verse || !verses.includes(String(philState.verse)) && !verses.includes(philState.verse)) {
+      philState.verse = verses[0];
+    }
 
     // Translations
     const translations = metadata.translations;
@@ -163,7 +229,7 @@ const philosophers = [
     if (transKeys.length > 1) {
       transSel.style.display = 'inline-block';
       transSel.innerHTML = transKeys.map(key => {
-        const label = translations[key].split(' ')[0]; // First word only
+        const label = translations[key].split(' ')[0];
         return `<option value="${key}" ${key == philState.translation ? 'selected' : ''}>${label}</option>`;
       }).join('');
     } else {
@@ -194,26 +260,39 @@ const philosophers = [
     const store = await loadData(philId);
     if (!store) return;
 
-    const { entries } = store;
+    const { entries, metadata } = store;
     const philState = state[philId];
     const quoteArea = section.querySelector('.quote-area');
     const textEl = section.querySelector('.quote-text');
     const infoEl = section.querySelector('.quote-info');
     const copyBtn = section.querySelector('.copy-btn');
 
+    // Initialize work if multi-work philosopher
+    if (metadata.works && metadata.works.length > 1 && !philState.work) {
+      philState.work = metadata.works[0];
+    }
+
+    // Filter entries by current work
+    let filteredEntries = entries;
+    if (philState.work) {
+      filteredEntries = entries.filter(e => e.work === philState.work);
+    }
+
     let entry;
 
     if (random) {
-      // Shuffle: pick random entry
-      entry = entries[Math.floor(Math.random() * entries.length)];
-      philState.book = entry.book || entry.work;
+      // Shuffle: pick random entry from filtered set
+      entry = filteredEntries[Math.floor(Math.random() * filteredEntries.length)];
+      if (entry.work) philState.work = entry.work;
+      philState.book = entry.book || null;
       philState.verse = entry.verse || entry.chapter || entry.letter;
     } else {
       // Navigate: find specific entry
-      entry = entries.find(e =>
-        (e.book || e.work) == philState.book &&
-        (e.verse || e.chapter || e.letter) == philState.verse
-      ) || entries[0];
+      entry = filteredEntries.find(e => {
+        const bookMatch = !philState.book || String(e.book) === String(philState.book);
+        const verseMatch = String(e.verse || e.chapter || e.letter) === String(philState.verse);
+        return bookMatch && verseMatch;
+      }) || filteredEntries[0];
     }
 
     // Fade out
@@ -231,7 +310,7 @@ const philosophers = [
       quoteArea.scrollTop = 0;
 
       // Update selectors
-      updateSelectors(section, store, philState);
+      updateSelectors(section, store, philState, philId);
 
       if (isTouch) copyBtn?.classList.add('visible');
     }, 300);
@@ -254,9 +333,13 @@ const philosophers = [
         const navType = e.target.dataset.nav;
         const value = e.target.value;
 
-        if (navType === 'book') {
+        if (navType === 'work') {
+          state[philId].work = value;
+          state[philId].book = null; // Reset book when work changes
+          state[philId].verse = null; // Reset verse when work changes
+        } else if (navType === 'book') {
           state[philId].book = isNaN(value) ? value : parseInt(value);
-          state[philId].verse = 1; // Reset verse when book changes
+          state[philId].verse = null; // Reset verse when book changes
         } else if (navType === 'verse') {
           state[philId].verse = isNaN(value) ? value : parseInt(value);
         } else if (navType === 'translation') {
