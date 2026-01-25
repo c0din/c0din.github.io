@@ -153,11 +153,11 @@ const philosophers = [
 </style>
 
 <script>
-  // State management (work is null for single-work philosophers like Marcus)
+  // State management (work/translation initialized from metadata on first load)
   const state = {
-    marcus: { work: null, book: 1, verse: 1, translation: 'english' },
-    epictetus: { work: null, book: null, verse: 1, translation: 'english' },
-    seneca: { work: null, book: null, verse: 1, translation: 'english' }
+    marcus: { work: null, book: 1, verse: 1, translation: null },
+    epictetus: { work: null, book: null, verse: 1, translation: null },
+    seneca: { work: null, book: null, verse: 1, translation: null }
   };
 
   const dataStore = {};
@@ -314,14 +314,18 @@ const philosophers = [
     const textEl = section.querySelector('.quote-text');
     const copyBtn = section.querySelector('.copy-btn');
 
-    // Initialize work if multi-work philosopher
-    if (metadata.works && metadata.works.length > 1 && !philState.work) {
+    // Initialize work and translation from metadata if not set
+    if (metadata.works && metadata.works.length > 0 && !philState.work) {
       philState.work = metadata.works[0];
     }
+    if (!philState.translation) {
+      philState.translation = metadata.defaultTranslation || Object.keys(metadata.translations)[0] || 'english';
+    }
 
-    // Filter entries by current work
+    // Filter entries by current work (only if entries actually have work field)
     let filteredEntries = entries;
-    if (philState.work) {
+    const hasWorkField = entries.some(e => e.work);
+    if (hasWorkField && philState.work) {
       filteredEntries = entries.filter(e => e.work === philState.work);
     }
 

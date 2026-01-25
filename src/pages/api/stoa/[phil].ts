@@ -1,37 +1,68 @@
 import type { APIRoute } from 'astro';
 
-// Import JSON data
+// Import JSON data (canonical schema with metadata wrapper)
 import meditations from '../../../../public/assets/stoa/meditations.json';
 import epictetus from '../../../../public/assets/stoa/epictetus.json';
 import seneca from '../../../../public/assets/stoa/seneca.json';
 
-type Entry = {
-  id: string;
-  book?: string;
-  verse?: string;
-  work?: string;
-  chapter?: string;
-  letter?: string;
-  english: string;
-  comment: string | null;
+type CanonicalData = {
+  metadata: {
+    work: string;
+    author: string;
+    works: string[];
+    translations: Record<string, string>;
+    defaultTranslation: string;
+  };
+  entries: Entry[];
 };
 
-const dataMap: Record<string, Entry[]> = {
-  marcus: meditations as Entry[],
-  epictetus: epictetus as Entry[],
-  seneca: seneca as Entry[]
+type Entry = {
+  work?: string;
+  book?: number | string;
+  verse?: number | string;
+  chapter?: string;
+  letter?: string;
+  text?: Record<string, string>;
+  english?: string; // Legacy field
+};
+
+// Helper to normalize data (handles both old array format and new canonical format)
+function normalizeData(data: any): CanonicalData {
+  if (Array.isArray(data)) {
+    // Old format: flat array of entries with 'english' field
+    return {
+      metadata: {
+        work: 'Unknown',
+        author: 'Unknown',
+        works: [],
+        translations: { english: 'Default' },
+        defaultTranslation: 'english'
+      },
+      entries: data
+    };
+  }
+  // New canonical format
+  return data as CanonicalData;
+}
+
+const dataMap: Record<string, CanonicalData> = {
+  marcus: normalizeData(meditations),
+  epictetus: normalizeData(epictetus),
+  seneca: normalizeData(seneca)
 };
 
 export const GET: APIRoute = ({ params, url }) => {
   const { phil } = params;
-  const data = dataMap[phil as string];
+  const canonicalData = dataMap[phil as string];
 
-  if (!data) {
+  if (!canonicalData) {
     return new Response(JSON.stringify({ error: 'Philosopher not found' }), {
       status: 404,
       headers: { 'Content-Type': 'application/json' }
     });
   }
+
+  const { metadata, entries: allEntries } = canonicalData;
 
   // Query params for filtering
   const work = url.searchParams.get('work');
@@ -39,7 +70,7 @@ export const GET: APIRoute = ({ params, url }) => {
   const verse = url.searchParams.get('verse');
   const random = url.searchParams.get('random');
 
-  let entries = [...data];
+  let entries = [...allEntries];
 
   // Filter by work (for philosophers with multiple texts)
   if (work) {
@@ -68,24 +99,25 @@ export const GET: APIRoute = ({ params, url }) => {
     });
   }
 
-  // Extract unique works for metadata, with defaults for single-work philosophers
-  const worksFromData = [...new Set(data.map(e => e.work).filter(Boolean))];
-
-  // Default work names for philosophers without work field in entries
+  // Use metadata from canonical data, with fallbacks for legacy data
+  const worksFromEntries = [...new Set(allEntries.map(e => e.work).filter(Boolean))];
   const defaultWorks: Record<string, string[]> = {
     marcus: ['Meditations'],
     epictetus: ['Enchiridion', 'Discourses'],
     seneca: ['Letters to Lucilius', 'Essays']
   };
 
-  const works = worksFromData.length > 0 ? worksFromData : (defaultWorks[phil as string] || ['Works']);
+  const works = metadata.works?.length > 0
+    ? metadata.works
+    : worksFromEntries.length > 0
+      ? worksFromEntries
+      : (defaultWorks[phil as string] || ['Works']);
 
-  // Return with metadata wrapper for QuoteGenerator compatibility
+  // Return with metadata wrapper
   return new Response(JSON.stringify({
     metadata: {
+      ...metadata,
       works,
-      translations: { english: 'Default' },
-      defaultTranslation: 'english'
     },
     entries
   }), {
