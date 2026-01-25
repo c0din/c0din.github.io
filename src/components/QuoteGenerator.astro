@@ -1,9 +1,6 @@
 ---
-// Scroll-based Stoic Quote Generator
-// Scroll/swipe between philosophers to see their wisdom
 import { Image } from 'astro:assets';
 
-// Import optimized images from src/assets/images/
 import marcusImg from '../assets/images/marcus.png';
 import epictetusImg from '../assets/images/epictetus.png';
 import senecaImg from '../assets/images/seneca.png';
@@ -33,28 +30,34 @@ const philosophers = [
 ];
 ---
 
-<div class="h-[450px] w-full max-w-lg overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar" id="stoic-scroller">
+<div class="h-[600px] w-full max-w-lg overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar border-y border-white/10" id="stoic-scroller">
   {philosophers.map((phil, index) => (
-    <section class="h-full w-full flex flex-col items-center justify-center snap-start py-8" data-philosopher={phil.id}>
-      <div class="bust-container cursor-pointer transition-all active:scale-95 group">
+    <section class="h-full w-full flex flex-col items-center justify-center snap-start py-12 relative" data-philosopher={phil.id}>
+
+      <div class="bust-container cursor-pointer transition-all active:scale-95 group shrink-0">
         <Image
           src={phil.image}
           alt={phil.name}
-          class={`w-48 h-auto transition-transform group-hover:scale-105 ${phil.glowClass}`}
-          width={192}
+          class={`w-44 h-auto transition-transform group-hover:scale-105 ${phil.glowClass}`}
+          width={176}
         />
       </div>
-      <p class="mt-2 text-sm uppercase tracking-widest text-white/70">{phil.name}</p>
-      <div class="quote-box mt-6 text-center px-4 min-h-[120px] max-w-md">
-        <p class="quote-text text-xl text-white font-medium italic leading-relaxed">
+
+      <p class="mt-4 text-[10px] uppercase tracking-[0.4em] text-white/40 font-black">{phil.name}</p>
+
+      <div class="quote-box mt-6 px-10 flex flex-col items-center overflow-y-auto max-h-[250px] custom-scrollbar relative group/quote">
+        <p class="quote-text text-lg text-white font-medium italic leading-relaxed text-center selection:bg-pink-500">
           "Click {phil.title} to begin."
         </p>
-        <span class="quote-source block mt-3 text-xs uppercase tracking-widest text-white/50"></span>
+        <span class="quote-source block mt-4 text-[10px] uppercase tracking-widest text-white/30 text-center"></span>
+
+        <button class="copy-btn absolute -right-2 top-0 opacity-0 group-hover/quote:opacity-100 transition-opacity p-2 text-white/30 hover:text-white" title="Copy Quote" aria-label="Copy quote to clipboard">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        </button>
       </div>
-      <div class="scroll-hint mt-4 text-white/30 text-xs animate-bounce">
-        {index === 0 ? '↓ scroll for more philosophers' :
-         index === philosophers.length - 1 ? '↑ scroll for more philosophers' :
-         '↑↓'}
+
+      <div class="scroll-hint mt-8 text-white/20 text-[10px] animate-bounce shrink-0">
+        {index === 0 ? '↓ swipe for more' : index === philosophers.length - 1 ? '↑ swipe for more' : '↑↓'}
       </div>
     </section>
   ))}
@@ -65,56 +68,65 @@ const philosophers = [
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
   .glow-marcus {
-    filter: drop-shadow(0 0 20px #ff00ff) hue-rotate(280deg) brightness(1.1);
+    filter: drop-shadow(0 0 10px #ff00ff) drop-shadow(0 0 2px #ff00ff);
   }
+
   .glow-epictetus {
-    filter: drop-shadow(0 0 20px #00f2ff) hue-rotate(180deg) brightness(1.1);
+    filter: drop-shadow(0 0 15px #00f2ff) hue-rotate(180deg);
   }
+
   .glow-seneca {
-    filter: drop-shadow(0 0 20px #ffff00) sepia(0.3) brightness(1.1);
+    filter: drop-shadow(0 0 15px #ffff00) sepia(0.3);
   }
 
-  .quote-box {
-    transition: opacity 0.4s ease-in-out;
+  .quote-box { transition: opacity 0.4s ease-in-out; }
+
+  .custom-scrollbar::-webkit-scrollbar { width: 3px; }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
   }
 
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+  /* Show copy button on touch devices after quote loads */
+  .copy-btn.visible {
+    opacity: 0.5;
+  }
+  .copy-btn.visible:hover,
+  .copy-btn.visible:active {
+    opacity: 1;
   }
 </style>
 
 <script>
-  // JSON sources organized in public/assets/stoa/
   const sources = {
     marcus: {
       url: '/assets/stoa/meditations.json',
-      sourceFormat: (q) => `— Meditations, Book ${q.book}, Verse ${q.verse}`
+      format: (q) => `— Meditations, Book ${q.book}, Verse ${q.verse}`
     },
     epictetus: {
       url: '/assets/stoa/epictetus.json',
-      sourceFormat: (q) => `— ${q.work}, ${q.chapter || q.section || ''}`
+      format: (q) => `— ${q.work || 'Discourses'}, ${q.chapter || q.section || ''}`
     },
     seneca: {
       url: '/assets/stoa/seneca.json',
-      sourceFormat: (q) => `— ${q.work}, ${q.letter ? `Letter ${q.letter}` : q.chapter || ''}`
+      format: (q) => `— ${q.work || 'Letters'}, ${q.letter ? `Letter ${q.letter}` : q.chapter || ''}`
     }
   };
 
   const data = {};
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
   async function init() {
     for (const [key, config] of Object.entries(sources)) {
       try {
         const res = await fetch(config.url);
-        if (res.ok) {
-          data[key] = await res.json();
-        }
-      } catch (e) {
-        console.warn(`Could not load ${key} quotes`);
-      }
+        if (res.ok) data[key] = await res.json();
+      } catch (e) { console.warn(`Load error: ${key}`); }
     }
   }
+
+  const copyIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+  const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f2ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 
   document.querySelectorAll('section').forEach(section => {
     const phil = section.getAttribute('data-philosopher');
@@ -122,27 +134,39 @@ const philosophers = [
     const textEl = section.querySelector('.quote-text');
     const sourceEl = section.querySelector('.quote-source');
     const quoteBox = section.querySelector('.quote-box');
+    const copyBtn = section.querySelector('.copy-btn');
 
     bust?.addEventListener('click', () => {
       const quotes = data[phil];
-      if (!quotes || quotes.length === 0) {
-        textEl.innerText = '"No quotes loaded yet."';
-        sourceEl.innerText = '';
-        return;
-      }
+      if (!quotes?.length) return;
 
       quoteBox.style.opacity = '0';
+      copyBtn?.classList.remove('visible');
 
       setTimeout(() => {
-        const random = quotes[Math.floor(Math.random() * quotes.length)];
-        const text = random.english || random.text || random.quote;
-        textEl.innerText = `"${text}"`;
-
-        const config = sources[phil];
-        sourceEl.innerText = config.sourceFormat(random);
-
+        const q = quotes[Math.floor(Math.random() * quotes.length)];
+        textEl.innerText = `"${q.english || q.text || q.quote}"`;
+        sourceEl.innerText = sources[phil].format(q);
         quoteBox.style.opacity = '1';
+
+        // Show copy button on touch devices
+        if (isTouchDevice) {
+          copyBtn?.classList.add('visible');
+        }
       }, 400);
+    });
+
+    copyBtn?.addEventListener('click', async () => {
+      const content = `${textEl.innerText}\n${sourceEl.innerText}`;
+      try {
+        await navigator.clipboard.writeText(content);
+        copyBtn.innerHTML = checkIcon;
+        setTimeout(() => {
+          copyBtn.innerHTML = copyIcon;
+        }, 2000);
+      } catch (e) {
+        console.warn('Copy failed:', e);
+      }
     });
   });
 
