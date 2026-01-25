@@ -26,29 +26,26 @@ const philosophers = [
       </div>
 
       <div class="z-20 text-center mt-6">
-        <p class="text-[10px] uppercase tracking-[0.6em] text-slate-900/40 font-black">{phil.name}</p>
+        <p class="text-[10px] uppercase tracking-[0.6em] text-slate-900/40 font-black mb-4">{phil.name}</p>
 
-        <!-- Navigation Bar with integrated source citation -->
-        <nav class="flex items-center justify-center gap-3 mt-4 text-[10px] font-medium text-slate-900/30 uppercase tracking-widest flex-wrap">
-          <select data-nav="work" class="nav-select bg-transparent outline-none cursor-pointer hover:text-slate-900 transition-colors hidden">
+        <!-- Typography-First Navigation - looks like interactive text -->
+        <nav class="flex items-center justify-center gap-1.5 text-[11px] font-medium text-slate-900/50 uppercase tracking-widest leading-none">
+          <select data-nav="work" class="nav-select nav-bold hidden">
             <option>Work</option>
           </select>
-          <span class="nav-dot opacity-30 hidden">•</span>
-          <select data-nav="book" class="nav-select bg-transparent outline-none cursor-pointer hover:text-slate-900 transition-colors">
+          <span class="nav-dot opacity-30 px-1 hidden">•</span>
+          <select data-nav="book" class="nav-select nav-bold">
             <option>Book</option>
           </select>
-          <span class="opacity-30">•</span>
-          <select data-nav="verse" class="nav-select bg-transparent outline-none cursor-pointer hover:text-slate-900 transition-colors">
+          <span class="opacity-30 px-1">•</span>
+          <select data-nav="verse" class="nav-select nav-bold">
             <option>Verse</option>
           </select>
-          <span class="opacity-30">•</span>
-          <select data-nav="translation" class="nav-select bg-transparent outline-none cursor-pointer hover:text-slate-900 transition-colors">
+          <span class="trans-dot opacity-30 px-1 hidden">•</span>
+          <select data-nav="translation" class="nav-select nav-bold hidden">
             <option>Translation</option>
           </select>
         </nav>
-
-        <!-- Source citation moved here to avoid bottom collision -->
-        <p class="quote-source text-[9px] uppercase tracking-[0.2em] text-slate-900/20 font-medium mt-3 transition-opacity duration-300"></p>
       </div>
 
       <div class="relative w-full max-w-4xl mt-12 group/quote z-20">
@@ -82,25 +79,74 @@ const philosophers = [
   #stoic-scroller {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    scroll-snap-type: y mandatory;
   }
 
   /* Section snap and transition */
   section[data-philosopher] {
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    transition: filter 0.5s ease-in-out, opacity 0.5s ease-in-out;
   }
 
-  /* Navigation selects - minimal styling */
+  /* Typography-first navigation selects */
   .nav-select {
     appearance: none;
     -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
     text-align: center;
     text-align-last: center;
-    min-width: 4rem;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
   }
 
-  .quote-area { transition: opacity 0.4s ease-in-out; }
+  .nav-select:focus { outline: none; }
+
+  /* Bold style for active selections */
+  .nav-bold {
+    color: rgba(15, 23, 42, 0.8);
+    font-weight: 700;
+    transition: color 0.2s ease;
+  }
+
+  .nav-bold:hover {
+    color: rgba(15, 23, 42, 1);
+  }
+
+  /* Quote area with reveal animation */
+  .quote-area {
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-out;
+  }
+
+  .quote-area.revealing {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .quote-area.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Quote text cinematic reveal */
+  .quote-text {
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+
+  .quote-text.fade-out {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  .quote-text.fade-in {
+    opacity: 1;
+    transform: scale(1);
+  }
 
   @media (hover: hover) {
     .group\/quote:hover .copy-btn { opacity: 1; }
@@ -227,15 +273,18 @@ const philosophers = [
     // Translations
     const translations = metadata.translations;
     const transKeys = Object.keys(translations);
+    const transDot = section.querySelector('.trans-dot');
 
     if (transKeys.length > 1) {
       transSel.style.display = 'inline-block';
+      if (transDot) transDot.style.display = 'inline';
       transSel.innerHTML = transKeys.map(key => {
         const label = translations[key].split(' ')[0];
         return `<option value="${key}" ${key == philState.translation ? 'selected' : ''}>${label}</option>`;
       }).join('');
     } else {
       transSel.style.display = 'none';
+      if (transDot) transDot.style.display = 'none';
     }
   }
 
@@ -266,7 +315,6 @@ const philosophers = [
     const philState = state[philId];
     const quoteArea = section.querySelector('.quote-area');
     const textEl = section.querySelector('.quote-text');
-    const sourceEl = section.querySelector('.quote-source');
     const copyBtn = section.querySelector('.copy-btn');
 
     // Initialize work if multi-work philosopher
@@ -297,25 +345,32 @@ const philosophers = [
       }) || filteredEntries[0];
     }
 
-    // Fade out
-    quoteArea.style.opacity = '0';
+    // Cinematic fade out
+    textEl.classList.add('fade-out');
+    textEl.classList.remove('fade-in');
+    quoteArea.classList.add('revealing');
+    quoteArea.classList.remove('revealed');
     if (isTouch) copyBtn?.classList.remove('visible');
 
     setTimeout(() => {
       // Get text with translation fallback
       const text = entry.text?.[philState.translation] || entry.english || entry.text || "Selection not available.";
       textEl.innerText = text;
-      sourceEl.innerText = formatSource(entry, philId);
 
-      // Fade in
-      quoteArea.style.opacity = '1';
-      quoteArea.scrollTop = 0;
-
-      // Update selectors
+      // Update selectors first
       updateSelectors(section, store, philState, philId);
 
-      if (isTouch) copyBtn?.classList.add('visible');
-    }, 300);
+      // Cinematic fade in
+      requestAnimationFrame(() => {
+        textEl.classList.remove('fade-out');
+        textEl.classList.add('fade-in');
+        quoteArea.classList.remove('revealing');
+        quoteArea.classList.add('revealed');
+        quoteArea.scrollTop = 0;
+
+        if (isTouch) copyBtn?.classList.add('visible');
+      });
+    }, 350);
   }
 
   // Copy icons
@@ -352,12 +407,25 @@ const philosophers = [
       });
     });
 
-    // Copy button
+    // Copy button - construct source from navigation state
     const copyBtn = section.querySelector('.copy-btn');
     copyBtn?.addEventListener('click', async () => {
       const textEl = section.querySelector('.quote-text');
-      const sourceEl = section.querySelector('.quote-source');
-      const content = `"${textEl.innerText}"\n— ${sourceEl.innerText}`;
+      const bookSel = section.querySelector('[data-nav="book"]');
+      const verseSel = section.querySelector('[data-nav="verse"]');
+      const workSel = section.querySelector('[data-nav="work"]');
+
+      // Build source citation from current selections
+      let source = '';
+      if (workSel?.style.display !== 'none' && workSel?.value) {
+        source += workSel.value + ' • ';
+      }
+      if (bookSel?.style.display !== 'none' && bookSel?.value) {
+        source += bookSel.options[bookSel.selectedIndex]?.text + ' • ';
+      }
+      source += verseSel?.value || '';
+
+      const content = `"${textEl.innerText}"\n— ${source}`;
 
       try {
         await navigator.clipboard.writeText(content);

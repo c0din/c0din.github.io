@@ -15,8 +15,8 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body class="min-h-screen overflow-hidden">
-		<!-- Fixed Aether Background - stays stationary while content scrolls -->
-		<div class="fixed inset-0 -z-50 bg-gradient-to-br from-cyan-200 via-white to-pink-300 pointer-events-none"></div>
+		<!-- Fixed Aether Background - deeper saturation for readability -->
+		<div class="aether-bg fixed inset-0 -z-50 pointer-events-none transition-all duration-700"></div>
 
 		<main class="relative z-10">
 			<slot />

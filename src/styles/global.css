@@ -29,3 +29,13 @@
   background: var(--color-neon-pink);
   border-radius: 10px;
 }
+
+/* Aether Background - seamless gradient behind all content */
+.aether-bg {
+  background: linear-gradient(
+    to bottom,
+    #7dd3fc 0%,      /* sky-300 */
+    #fdf2f8 50%,     /* pink-50 */
+    #f9a8d4 100%     /* pink-300 */
+  );
+}
