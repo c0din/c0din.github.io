@@ -1,53 +1,170 @@
 ---
-// No server-side logic needed for this interactive piece
+// Scroll-based Stoic Quote Generator
+// Scroll/swipe between philosophers to see their wisdom
+import { Image } from 'astro:assets';
+
+// Import images from src/assets for optimization
+// These will fail gracefully if images don't exist yet
+let marcusImg, epictetusImg, senecaImg;
+
+try {
+  marcusImg = (await import('../assets/images/marcus.png')).default;
+} catch { marcusImg = null; }
+
+try {
+  epictetusImg = (await import('../assets/images/epictetus.png')).default;
+} catch { epictetusImg = null; }
+
+try {
+  senecaImg = (await import('../assets/images/seneca.png')).default;
+} catch { senecaImg = null; }
+
+// Fallback URLs from Wikimedia Commons
+const fallbacks = {
+  marcus: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Marcus_Aurelius_Louvre_MR453_n01.png',
+  epictetus: 'https://upload.wikimedia.org/wikipedia/commons/0/00/Epictetus.jpg',
+  seneca: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Seneca-berlinantikensammlung-1.jpg'
+};
+
+const philosophers = [
+  {
+    id: 'marcus',
+    name: 'Marcus Aurelius',
+    title: 'the Emperor',
+    image: marcusImg,
+    fallback: fallbacks.marcus,
+    glowClass: 'glow-marcus'
+  },
+  {
+    id: 'epictetus',
+    name: 'Epictetus',
+    title: 'the Teacher',
+    image: epictetusImg,
+    fallback: fallbacks.epictetus,
+    glowClass: 'glow-epictetus'
+  },
+  {
+    id: 'seneca',
+    name: 'Seneca',
+    title: 'the Advisor',
+    image: senecaImg,
+    fallback: fallbacks.seneca,
+    glowClass: 'glow-seneca'
+  }
+];
 ---
 
-<div class="flex flex-col items-center justify-center py-20">
-  <div id="bust-trigger" class="cursor-pointer transition-transform hover:scale-105">
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Marcus_Aurelius_Louvre_MR453_n01.png"
-      class="w-64 drop-shadow-[0_0_20px_#ff00ff] hue-rotate-[280deg]"
-      alt="Marcus Aurelius"
-    />
-  </div>
-  <div id="quote-display" class="mt-10 text-center transition-opacity duration-500 max-w-lg">
-    <p id="quote-text" class="text-2xl font-bold text-slate-900 leading-snug">
-      "Click the Emperor to begin."
-    </p>
-    <span id="quote-source" class="block mt-4 text-sm uppercase tracking-widest opacity-50"></span>
-  </div>
+<div class="relative h-[500px] w-full max-w-lg overflow-y-scroll snap-y snap-mandatory no-scrollbar" id="philosopher-scroll">
+  {philosophers.map((phil, index) => (
+    <section class="h-full w-full flex flex-col items-center justify-center snap-start" data-philosopher={phil.id}>
+      <div class="bust-container cursor-pointer group">
+        {phil.image ? (
+          <Image
+            src={phil.image}
+            alt={phil.name}
+            class={`w-48 transition-transform group-hover:scale-105 ${phil.glowClass}`}
+            width={192}
+            height={192}
+          />
+        ) : (
+          <img
+            src={phil.fallback}
+            alt={phil.name}
+            class={`w-48 transition-transform group-hover:scale-105 ${phil.glowClass}`}
+          />
+        )}
+      </div>
+      <p class="mt-2 text-sm uppercase tracking-widest text-white/70">{phil.name}</p>
+      <div class="quote-box mt-6 text-center px-4 min-h-[120px] max-w-md">
+        <p class="quote-text text-xl text-white font-medium italic leading-relaxed">
+          "Click {phil.title} to begin."
+        </p>
+        <span class="quote-source block mt-3 text-xs uppercase tracking-widest text-white/50"></span>
+      </div>
+      <div class="scroll-hint mt-4 text-white/30 text-xs animate-bounce">
+        {index === 0 ? '↓ scroll for more philosophers' :
+         index === philosophers.length - 1 ? '↑ scroll for more philosophers' :
+         '↑ scroll for more philosophers ↓'}
+      </div>
+    </section>
+  ))}
 </div>
 
-<script>
-  let quotes = [];
+<style>
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-  async function loadQuotes() {
-    try {
-      const res = await fetch('/meditations.json');
-      quotes = await res.json();
-    } catch (e) {
-      console.error("Failed to load meditations.json", e);
+  .glow-marcus {
+    filter: drop-shadow(0 0 20px #ff00ff) hue-rotate(280deg) brightness(1.1);
+  }
+  .glow-epictetus {
+    filter: drop-shadow(0 0 20px #00f2ff) hue-rotate(180deg) brightness(1.1);
+  }
+  .glow-seneca {
+    filter: drop-shadow(0 0 20px #ffff00) sepia(0.3) brightness(1.1);
+  }
+
+  .quote-box {
+    transition: opacity 0.4s ease-in-out;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+</style>
+
+<script>
+  const sources = {
+    marcus: { url: '/meditations.json', sourceFormat: (q) => `— Meditations, Book ${q.book}, Verse ${q.verse}` },
+    epictetus: { url: '/epictetus.json', sourceFormat: (q) => `— ${q.work}, ${q.chapter || q.section || ''}` },
+    seneca: { url: '/seneca.json', sourceFormat: (q) => `— ${q.work}, ${q.letter ? `Letter ${q.letter}` : q.chapter || ''}` }
+  };
+
+  const data = {};
+
+  async function init() {
+    for (const [key, config] of Object.entries(sources)) {
+      try {
+        const res = await fetch(config.url);
+        if (res.ok) {
+          data[key] = await res.json();
+        }
+      } catch (e) {
+        console.warn(`Could not load ${key} quotes`);
+      }
     }
   }
 
-  function updateQuote() {
-    if (quotes.length === 0) return;
-    
-    const display = document.getElementById('quote-display');
-    const text = document.getElementById('quote-text');
-    const source = document.getElementById('quote-source');
+  document.querySelectorAll('section').forEach(section => {
+    const phil = section.getAttribute('data-philosopher');
+    const bust = section.querySelector('.bust-container');
+    const textEl = section.querySelector('.quote-text');
+    const sourceEl = section.querySelector('.quote-source');
+    const quoteBox = section.querySelector('.quote-box');
 
-    display.style.opacity = '0';
+    bust?.addEventListener('click', () => {
+      const quotes = data[phil];
+      if (!quotes || quotes.length === 0) {
+        textEl.innerText = '"No quotes loaded yet."';
+        sourceEl.innerText = '';
+        return;
+      }
 
-    setTimeout(() => {
-      const random = quotes[Math.floor(Math.random() * quotes.length)];
-      text.innerText = `"${random.english}"`;
-      source.innerText = `— Book ${random.book}, Verse ${random.verse}`;
-      display.style.opacity = '1';
-    }, 400);
-  }
+      quoteBox.style.opacity = '0';
 
-  // Initialize
-  loadQuotes();
-  document.getElementById('bust-trigger').addEventListener('click', updateQuote);
+      setTimeout(() => {
+        const random = quotes[Math.floor(Math.random() * quotes.length)];
+        const text = random.english || random.text || random.quote;
+        textEl.innerText = `"${text}"`;
+
+        const config = sources[phil];
+        sourceEl.innerText = config.sourceFormat(random);
+
+        quoteBox.style.opacity = '1';
+      }, 400);
+    });
+  });
+
+  init();
 </script>

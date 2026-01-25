@@ -1,0 +1,58 @@
+[
+  {
+    "id": "S001",
+    "work": "Letters to Lucilius",
+    "letter": "1",
+    "english": "It is not that we have a short time to live, but that we waste a lot of it.",
+    "comment": null
+  },
+  {
+    "id": "S002",
+    "work": "Letters to Lucilius",
+    "letter": "2",
+    "english": "To be everywhere is to be nowhere.",
+    "comment": null
+  },
+  {
+    "id": "S003",
+    "work": "On the Shortness of Life",
+    "chapter": "1",
+    "english": "Life is long if you know how to use it.",
+    "comment": null
+  },
+  {
+    "id": "S004",
+    "work": "Letters to Lucilius",
+    "letter": "16",
+    "english": "Philosophy is not a matter of words, but of deeds.",
+    "comment": null
+  },
+  {
+    "id": "S005",
+    "work": "On Anger",
+    "chapter": "II.36",
+    "english": "The best remedy for anger is delay.",
+    "comment": null
+  },
+  {
+    "id": "S006",
+    "work": "Letters to Lucilius",
+    "letter": "77",
+    "english": "Sometimes even to live is an act of courage.",
+    "comment": null
+  },
+  {
+    "id": "S007",
+    "work": "On Providence",
+    "chapter": "4",
+    "english": "Fire tests gold, suffering tests brave men.",
+    "comment": null
+  },
+  {
+    "id": "S008",
+    "work": "Letters to Lucilius",
+    "letter": "107",
+    "english": "Willing obedience is better than forced compliance.",
+    "comment": null
+  }
+]
