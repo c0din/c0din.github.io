@@ -4,6 +4,7 @@ import type { APIRoute } from 'astro';
 import meditations from '../../../../public/assets/stoa/meditations.json';
 import epictetus from '../../../../public/assets/stoa/epictetus.json';
 import seneca from '../../../../public/assets/stoa/seneca.json';
+import diogenes from '../../../../public/assets/stoa/diogenes.json';
 
 type CanonicalData = {
   metadata: {
@@ -48,7 +49,8 @@ function normalizeData(data: any): CanonicalData {
 const dataMap: Record<string, CanonicalData> = {
   marcus: normalizeData(meditations),
   epictetus: normalizeData(epictetus),
-  seneca: normalizeData(seneca)
+  seneca: normalizeData(seneca),
+  diogenes: normalizeData(diogenes)
 };
 
 export const GET: APIRoute = ({ params, url }) => {

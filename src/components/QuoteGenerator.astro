@@ -3,10 +3,12 @@ import { Image } from 'astro:assets';
 import marcusImg from '../assets/images/marcus.png';
 import epictetusImg from '../assets/images/epictetus.png';
 import senecaImg from '../assets/images/seneca.png';
+import diogenesImg from '../assets/images/diogenes.png';
 
 const philosophers = [
-  { id: 'marcus', name: 'Marcus Aurelius', title: 'the Emperor', image: marcusImg, glow: 'rgba(255, 0, 255, 0.5)' },
+  { id: 'diogenes', name: 'Diogenes', title: 'the Cynic', image: diogenesImg, glow: 'rgba(128, 128, 128, 0.5)' },
   { id: 'epictetus', name: 'Epictetus', title: 'the Teacher', image: epictetusImg, glow: 'rgba(0, 242, 255, 0.4)' },
+  { id: 'marcus', name: 'Marcus Aurelius', title: 'the Emperor', image: marcusImg, glow: 'rgba(255, 0, 255, 0.5)' },
   { id: 'seneca', name: 'Seneca', title: 'the Advisor', image: senecaImg, glow: 'rgba(255, 255, 0, 0.3)' }
 ];
 ---
@@ -157,7 +159,8 @@ const philosophers = [
   const state = {
     marcus: { work: null, book: 1, verse: 1, translation: null },
     epictetus: { work: null, book: null, verse: 1, translation: null },
-    seneca: { work: null, book: null, verse: 1, translation: null }
+    seneca: { work: null, book: null, verse: 1, translation: null },
+    diogenes: { work: null, book: null, verse: 1, translation: null }
   };
 
   const dataStore = {};
@@ -166,7 +169,8 @@ const philosophers = [
   const sources = {
     marcus: '/api/stoa/marcus',
     epictetus: '/api/stoa/epictetus',
-    seneca: '/api/stoa/seneca'
+    seneca: '/api/stoa/seneca',
+    diogenes: '/api/stoa/diogenes'
   };
 
   // Load data with schema detection (backward compatible)
@@ -297,6 +301,8 @@ const philosophers = [
         return `${entry.work || 'Discourses'} • ${verse}`;
       case 'seneca':
         return `${entry.work || 'Letters'} • ${entry.letter ? `Letter ${entry.letter}` : verse}`;
+      case 'diogenes':
+        return `Book VI • Verse ${verse}`;
       default:
         return `${book} • ${verse}`;
     }
