@@ -60,6 +60,7 @@ All JSON files follow a versioned schema with a metadata envelope:
   "metadata": {
     "works": ["Meditations"],
     "author": "Marcus Aurelius",
+    "school": "stoicism",
     "translations": {
       "long": "George Long (1862)",
       "hays": "Gregory Hays (2002)"
@@ -67,7 +68,12 @@ All JSON files follow a versioned schema with a metadata envelope:
     "defaultTranslation": "long"
   },
   "entries": [
-    { "book": 1, "verse": 1, "text": { "long": "...", "hays": "..." } }
+    {
+      "book": 1,
+      "verse": 1,
+      "text": { "long": "...", "hays": "..." },
+      "tags": ["discipline", "action"]
+    }
   ]
 }
 ```
@@ -76,29 +82,122 @@ The client detects schema version at runtime (`data.entries || data`) for backwa
 
 ---
 
-## Suggested Next Steps
+## Philosophical Expansions — The Warrior-Sage Corpus
 
-### Content
+Evolving the reader from a Stoic repository into a complete artifact for the Warrior-Sage requires bridging abstract philosophy with tactical execution. Group additions by school:
 
-- [ ] **Add Seneca translations** — a second Latin-to-English translation (e.g. Richard Mott Gummere) would unlock the translation selector for Seneca the same way Meditations has it
-- [ ] **Expand Epictetus** — the Discourses are only partially represented; fill out all four books
-- [ ] **Marcus image polish** — current bust has a transparent background while Epictetus/Seneca/Diogenes have dark backgrounds; a consistent treatment across all four would unify the aesthetic
+### The Schools
 
-### UX
+| School | Philosophers | Source Texts |
+|---|---|---|
+| **The Porch** (Stoicism) | Marcus Aurelius, Epictetus, Seneca | Meditations, Enchiridion, Letters |
+| **The Barrel** (Cynicism) | Diogenes | Lives of the Eminent Philosophers, Book VI |
+| **The Dojo** (Tactical/Martial) | Miyamoto Musashi, Sun Tzu | Book of Five Rings, Art of War |
+| **The Athanor** (Mysticism/Analysis) | Carl Jung, Pythagoras (via Iamblichus) | Red Book, Man and His Symbols, Golden Verses |
+| **The Stream** (Taoism) | Lao Tzu, Zhuangzi | Tao Te Ching, Zhuangzi |
 
-- [ ] **Keyboard navigation** — left/right arrow keys to step through verses; `r` to shuffle; already noted in PLAN.md
-- [ ] **Favorites / localStorage** — bookmark a passage to re-surface it later
-- [ ] **Deep-link URLs** — encode `philosopher/work/book/verse/translation` in the URL hash so passages are shareable
-- [ ] **Scroll-to-philosopher** — a minimal fixed header or dot-indicator showing which section is active and allowing direct jump
+### Priority Additions
 
-### Technical
+- **Miyamoto Musashi** — *The Book of Five Rings*. Direct support for physical culture, bojutsu, and the mechanics of martial discipline.
+- **Carl Jung** — *The Red Book* / *Man and His Symbols*. Psychological framework for shadow work, archetype exploration, and the alchemical process.
+- **Pythagoras (via Iamblichus)** — Surviving fragments and maxims. Roots the application in sacred geometry; mirrors the structural mathematics of the Tetractys.
+- **Lao Tzu** — *Tao Te Ching*. Counter-balance to Stoic rigidity through fluid adaptation and flow states.
 
-- [ ] **API routes** — the client fetches `/api/stoa/marcus` etc. but no actual API route files exist under `src/pages/api/`; the files are currently served from `public/assets/stoa/` as static JSON. Either add real Astro API endpoints or document the current public-static approach
-- [ ] **TypeScript types** — add a shared `Philosopher` and `QuoteEntry` type; the `tsconfig.json` exists but no type files do
-- [ ] **Image optimization** — bust images range from 843px to 2048px source; set consistent `width` and `densities` props on the Astro `<Image>` component for optimal AVIF/WebP output on Vercel
-- [ ] **`ProjectCard.astro` hookup** — the component is built but never used; wire it into a `/projects` page or remove it
+---
 
-### Infrastructure
+## Schema & Feature Evolution
 
-- [ ] **Preview deploys** — add a `pull_request` trigger to `.github/workflows/deploy.yml` so branches get Vercel preview URLs
-- [ ] **Lighthouse CI** — add a post-deploy performance check; the parallax layer and large PNG busts are candidates for regression
+### 1. Thematic Tagging
+
+Extend entry objects with a `tags` array to enable cross-author querying. Rather than "What did Marcus say?", the interface answers "Give me a passage on *Discipline*" — drawing from Musashi, Seneca, and Epictetus simultaneously.
+
+```json
+{ "book": 1, "verse": 1, "text": { "long": "..." }, "tags": ["discipline", "shadow", "action", "geometry"] }
+```
+
+### 2. The Oracle Mechanic
+
+Replace pure randomization with a daily seed or algorithmic I Ching hexagram generator. Transforms the shuffle button into a **daily draw** — a specific focal point for the day's training or writing. Seeding by date ensures the same passage surfaces consistently within a 24-hour window across devices.
+
+---
+
+## Architecture Evolution — The Memory Palace
+
+### The Problem
+
+The current flat vertical scroll becomes an "infinite scroll of floating heads" as the philosopher count grows. Navigation is linear; there is no spatial orientation.
+
+### The Solution: Hierarchical Routing
+
+Transition from a flat list to a three-level Memory Palace. Navigation becomes dimensional — you enter a Room, walk into a Wing, and focus on an Artifact.
+
+```
+src/pages/
+  index.astro                   # LEVEL 1: The Atrium (central hub)
+  [school]/
+    index.astro                 # LEVEL 2: The Wing  (e.g. /stoicism)
+    [philosopher].astro         # LEVEL 3: The Sanctum (e.g. /stoicism/marcus)
+```
+
+**Level 1 (`/`)** — The Atrium maps all available schools. No scrolling. Fixed-viewport geometric dashboard built on CSS Grid. Hovering "The Stoics" node fades in low-opacity silhouettes of Marcus, Seneca, and Epictetus behind the UI. A global command palette (`Cmd+K`) lists every philosopher for instant jumps.
+
+**Level 2 (`/stoicism`)** — The Wing fetches only JSON files tagged to that school and passes them as props into `<QuoteGenerator>`. The current scroll-snapping layout renders unchanged, restricted to that school's heads.
+
+**Level 3 (`/stoicism/marcus`)** — The Sanctum locks the viewport to a single philosopher for deep, uninterrupted study.
+
+### The Atrium Layout
+
+Use CSS Grid with a sacred geometry layout (Tetractys or Seed of Life pattern) to map school nodes on desktop. Each node is a card or geometric cell. The roster "Index" button opens a command palette listing every philosopher alphabetically across all eras.
+
+### Component Reuse
+
+`<QuoteGenerator>` accepts a `philosophers` prop. Existing scroll-snapping logic is unchanged — the routing layer simply controls which subset is passed in.
+
+---
+
+## Wiki Integration Strategies
+
+### Strategy 1: Headless Stoa (API Provider)
+
+Build actual Astro API routes (`src/pages/api/stoa/[philosopher].ts`). Serving JSON through server-side Vercel endpoints converts the app into a micro-service consumable by any external system.
+
+### Strategy 2: Quartz Homepage Injection
+
+With the API live, inject a dynamic **Daily Oracle** block onto the Quartz landing page. A lightweight fetch script — identical in architecture to existing `map.js` and `calendar.js` components — hits the Astro endpoint on load and displays the daily anchor quote at the top of the grid.
+
+### Strategy 3: Obsidian Workflow Automation
+
+Automate `Le Quotidien` creation via the Obsidian Templater plugin. A script fires when a new daily log is created, pings the Astro API, retrieves a tagged or seeded quote, and injects it into the *Slide / Intention* field of the markdown template — zero friction.
+
+---
+
+## Suggested Next Steps (Ordered)
+
+### Immediate — Unlock the Data Layer
+- [x] **Build Astro API routes** — `src/pages/api/stoa/[phil].ts` serves all philosophers + school index; supports `?work`, `?book`, `?verse`, `?tag`, `?random` query params
+- [x] **Add `school` key to JSON metadata** — all four existing files updated; `stoicism` / `cynicism`
+
+### Short Term — Expand the Corpus
+- [x] **Add Musashi** — Earth Scroll (10 entries) live at `/api/stoa/musashi`; school `tactical`; tagged entries
+- [ ] **Add Lao Tzu** — *Tao Te Ching* has multiple PD translations; pairs naturally with the existing Stoic material
+- [ ] **Add Seneca translations** — a second translation (e.g. Richard Mott Gummere) unlocks the translation selector for Seneca
+- [ ] **Expand Epictetus Discourses** — all four books, not just the sampled passages currently present
+
+### Medium Term — Architecture
+- [x] **Implement thematic tags** — `tags` array on all Musashi entries; schema supports it across all files
+- [x] **Build the `[school]` dynamic routes** — `src/pages/school/[name].astro`; SSR with back-link; stoicism / cynicism / tactical all return 200; unknown school → 302 to /404
+- [x] **`<QuoteGenerator>` prop-driven** — accepts `ids?: string[]`; `data-ids` on scroller drives dynamic `state` + `sources`; Musashi renders with `刀` symbol placeholder until bust is added
+- [ ] **Design the Atrium** — replace `index.astro` flat scroll with the geometric grid hub
+
+### Medium Term — UX
+- [ ] **Keyboard navigation** — arrow keys to step verses; `r` to shuffle
+- [ ] **Oracle mechanic** — daily seed tied to the date
+- [ ] **Deep-link URLs** — encode `school/philosopher/work/book/verse/translation` in the URL hash for shareable passages
+- [ ] **Favorites / localStorage** — bookmark a passage to re-surface it
+
+### Polish
+- [ ] **Marcus bust background** — transparent background while others have dark; apply a consistent dark treatment to unify all four busts
+- [ ] **Image optimization** — set `densities` props on `<Image>` for AVIF/WebP output via Vercel
+- [ ] **`ProjectCard.astro` hookup** — wire into a `/projects` page or delete it
+- [ ] **Preview deploys** — add `pull_request` trigger to `.github/workflows/deploy.yml`
+- [ ] **Lighthouse CI** — post-deploy performance check; parallax layer and large PNGs are regression candidates

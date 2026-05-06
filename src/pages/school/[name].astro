@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import QuoteGenerator from '../../components/QuoteGenerator.astro';
+
+const schools: Record<string, { title: string; subtitle: string; ids: string[] }> = {
+  stoicism: { title: 'The Porch',  subtitle: 'Stoicism',  ids: ['marcus', 'epictetus', 'seneca'] },
+  cynicism: { title: 'The Barrel', subtitle: 'Cynicism',  ids: ['diogenes'] },
+  tactical: { title: 'The Dojo',   subtitle: 'Tactical',  ids: ['musashi'] },
+};
+
+const { name } = Astro.params;
+const school = schools[name as string];
+
+if (!school) return Astro.redirect('/404');
+---
+
+<Layout title={`c0din | ${school.subtitle}`}>
+  <a
+    href="/"
+    class="fixed top-5 left-5 z-50 text-[10px] uppercase tracking-[0.4em] font-bold text-slate-900/30 hover:text-slate-900/70 transition-colors"
+  >
+    ← All Schools
+  </a>
+
+  <main class="min-h-screen flex items-center justify-center">
+    <QuoteGenerator ids={school.ids} />
+  </main>
+</Layout>

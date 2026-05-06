@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "works": ["The Book of Five Rings (The Earth Scroll)"],
+    "author": "Miyamoto Musashi",
+    "school": "tactical",
+    "translations": {
+      "standard": "Standard English Translation"
+    },
+    "defaultTranslation": "standard"
+  },
+  "entries": [
+    {
+      "book": 1,
+      "verse": 1,
+      "text": {
+        "standard": "After turning thirty, I reminisced on past experiences and realized that my success could not be credited to a true mastery of strategy... I was about fifty when I realized the real meaning of the Way of combat strategy. Since then, I have spent my days not needing to seek any more. Having attained the essence of the Way of combat strategy, I practice the disciplines of many arts without the need of a teacher in any of them."
+      },
+      "tags": ["mastery", "reflection", "discipline"]
+    },
+    {
+      "book": 1,
+      "verse": 2,
+      "text": {
+        "standard": "Inquiring into the minds of samurai today, it would seem that many believe the warrior’s Way demands nothing more than an unwavering preparedness for death. The Way of death, however, is by no means limited to the domain of the samurai. Priests, women, farmers and those beneath them are also aware of their social obligations and embody a sense of shame. They, too, are prepared to sacrifice life when the time comes, making them no different from samurai. For those practicing the Way of combat strategy, however, being better than others in everything is fundamental."
+      },
+      "tags": ["death", "victory", "strategy", "mindset"]
+    },
+    {
+      "book": 1,
+      "verse": 3,
+      "text": {
+        "standard": "There are naysayers in the world at large who claim that studying the Way of combat strategy is futile when confronted with the reality of battle. In response to this claim, I teach that the warrior must practice his craft in such a way that it is practical and functional in all things and at all times, for this is the true Way of combat strategy."
+      },
+      "tags": ["action", "utility", "strategy"]
+    },
+    {
+      "book": 1,
+      "verse": 4,
+      "text": {
+        "standard": "The carpenter chooses what kind of wood is suitable for building a house... If the degree of durability needed in different parts of the house is carefully gauged and wood quality is selected accordingly, even a house that is constructed with gnarled, twisted timber will last for years without falling down. Wood that is knotty, warped and weak should be earmarked for scaffolding and kindling when the job is done."
+      },
+      "tags": ["foundation", "leadership", "utility"]
+    },
+    {
+      "book": 1,
+      "verse": 5,
+      "text": {
+        "standard": "The master carpenter knows who of his men are high, middle or low in terms of ability and delegates jobs that match their capabilities... Work is sure to progress expediently and economically by properly discerning the competencies of one’s men. Things must proceed with efficiency to make headway. One must be unforgiving of shoddiness, cognizant of what is important and aware of the upper, middle and lower levels of liveliness in one’s men."
+      },
+      "tags": ["leadership", "efficiency", "management"]
+    },
+    {
+      "book": 1,
+      "verse": 6,
+      "text": {
+        "standard": "Second is the Water Scroll. The attributes of water represent the essence of the mind. Be a container square or round, water adjusts its form to fit the shape of the container. Water may be a small drop or a great ocean... The principle underlying strategy is 'To know ten thousand things from knowing one thing.'"
+      },
+      "tags": ["mind", "adaptability", "water", "perception"]
+    },
+    {
+      "book": 1,
+      "verse": 7,
+      "text": {
+        "standard": "In the practice of all Ways and arts, there is such a thing as a wayward spirit. You may believe that you are practicing your discipline conscientiously and are on the right path, but you will deviate from the true Way if your mind wanders. Departure from the truth becomes apparent when observed from the straight path. If you flounder in your pursuit of the true Way and your mind wanders even a little, this will lead to a colossal deviation."
+      },
+      "tags": ["discipline", "focus", "truth"]
+    },
+    {
+      "book": 1,
+      "verse": 8,
+      "text": {
+        "standard": "It is risky to use one’s sword with both hands. You are at a disadvantage when fighting from horseback or when engaged in combat on the run, whether in swamps and muddy rice fields, on stony ground and steep paths, or in the middle of a free-for-all... That is why it is incorrect in the true Way to hold your sword with both hands. If it is too difficult to dispatch your enemy with a one-handed blow, you can resort to using both at that point. It is not such a difficult matter to comprehend."
+      },
+      "tags": ["weapons", "adaptability", "tactics"]
+    },
+    {
+      "book": 1,
+      "verse": 9,
+      "text": {
+        "standard": "One who embodies the virtue of the sword will single-handedly be able to defeat ten adversaries. Just as one man can topple ten men, one hundred can defeat one thousand and one thousand can beat ten thousand. Thus, in my school of strategy one man is the same as ten thousand, which is why I say that strategy encompasses all facets of the warrior’s Way."
+      },
+      "tags": ["scale", "mastery", "strategy"]
+    },
+    {
+      "book": 1,
+      "verse": 10,
+      "text": {
+        "standard": "The warrior should avoid harboring a preference for any given weapon. Too much of one thing is just as bad as not enough. Without imitating others, you should have as many weapons as suits you, and be able to use them all. It is bad to cherish symbols over substance."
+      },
+      "tags": ["weapons", "balance", "mastery"]
+    }
+  ]
+}

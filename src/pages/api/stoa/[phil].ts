@@ -1,15 +1,16 @@
 import type { APIRoute } from 'astro';
 
-// Import JSON data (canonical schema with metadata wrapper)
 import meditations from '../../../../public/assets/stoa/meditations.json';
 import epictetus from '../../../../public/assets/stoa/epictetus.json';
 import seneca from '../../../../public/assets/stoa/seneca.json';
 import diogenes from '../../../../public/assets/stoa/diogenes.json';
+import musashi from '../../../../public/assets/stoa/musashi.json';
 
 type CanonicalData = {
   metadata: {
-    work: string;
+    work?: string;
     author: string;
+    school: string;
     works: string[];
     translations: Record<string, string>;
     defaultTranslation: string;
@@ -18,23 +19,22 @@ type CanonicalData = {
 };
 
 type Entry = {
+  id?: string;
   work?: string;
   book?: number | string;
   verse?: number | string;
   chapter?: string;
   letter?: string;
   text?: Record<string, string>;
-  english?: string; // Legacy field
+  english?: string; // legacy — kept for backward compat
 };
 
-// Helper to normalize data (handles both old array format and new canonical format)
-function normalizeData(data: any): CanonicalData {
+function normalizeData(data: any, fallbackSchool: string): CanonicalData {
   if (Array.isArray(data)) {
-    // Old format: flat array of entries with 'english' field
     return {
       metadata: {
-        work: 'Unknown',
         author: 'Unknown',
+        school: fallbackSchool,
         works: [],
         translations: { english: 'Default' },
         defaultTranslation: 'english'
@@ -42,23 +42,45 @@ function normalizeData(data: any): CanonicalData {
       entries: data
     };
   }
-  // New canonical format
   return data as CanonicalData;
 }
 
 const dataMap: Record<string, CanonicalData> = {
-  marcus: normalizeData(meditations),
-  epictetus: normalizeData(epictetus),
-  seneca: normalizeData(seneca),
-  diogenes: normalizeData(diogenes)
+  marcus:    normalizeData(meditations, 'stoicism'),
+  epictetus: normalizeData(epictetus,   'stoicism'),
+  seneca:    normalizeData(seneca,      'stoicism'),
+  diogenes:  normalizeData(diogenes,    'cynicism'),
+  musashi:   normalizeData(musashi,     'tactical')
+};
+
+// All philosophers indexed by school for the /api/stoa/school?name= pattern
+const schoolIndex: Record<string, string[]> = {
+  stoicism: ['marcus', 'epictetus', 'seneca'],
+  cynicism: ['diogenes'],
+  tactical: ['musashi']
 };
 
 export const GET: APIRoute = ({ params, url }) => {
   const { phil } = params;
+
+  // School query: /api/stoa/school?name=stoicism
+  if (phil === 'school') {
+    const name = url.searchParams.get('name');
+    if (!name || !schoolIndex[name]) {
+      return new Response(JSON.stringify({ error: 'School not found', available: Object.keys(schoolIndex) }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    return new Response(JSON.stringify({ school: name, philosophers: schoolIndex[name] }), {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   const canonicalData = dataMap[phil as string];
 
   if (!canonicalData) {
-    return new Response(JSON.stringify({ error: 'Philosopher not found' }), {
+    return new Response(JSON.stringify({ error: 'Philosopher not found', available: Object.keys(dataMap) }), {
       status: 404,
       headers: { 'Content-Type': 'application/json' }
     });
@@ -66,61 +88,42 @@ export const GET: APIRoute = ({ params, url }) => {
 
   const { metadata, entries: allEntries } = canonicalData;
 
-  // Query params for filtering
-  const work = url.searchParams.get('work');
-  const book = url.searchParams.get('book');
-  const verse = url.searchParams.get('verse');
+  // Query params
+  const work   = url.searchParams.get('work');
+  const book   = url.searchParams.get('book');
+  const verse  = url.searchParams.get('verse');
+  const tag    = url.searchParams.get('tag');
   const random = url.searchParams.get('random');
 
   let entries = [...allEntries];
 
-  // Filter by work (for philosophers with multiple texts)
-  if (work) {
-    entries = entries.filter(e => e.work === work);
-  }
+  if (work)  entries = entries.filter(e => e.work === work);
+  if (book)  entries = entries.filter(e => String(e.book) === book);
+  if (verse) entries = entries.filter(e => String(e.verse ?? e.chapter ?? e.letter) === verse);
+  if (tag)   entries = entries.filter(e => (e as any).tags?.includes(tag));
 
-  // Filter by book (numeric for Marcus, or work-based for others)
-  if (book) {
-    entries = entries.filter(e =>
-      String(e.book) === book
-    );
-  }
-
-  // Filter by verse/chapter/letter
-  if (verse) {
-    entries = entries.filter(e =>
-      String(e.verse || e.chapter || e.letter) === verse
-    );
-  }
-
-  // Return random entry
   if (random === 'true') {
-    const randomEntry = entries[Math.floor(Math.random() * entries.length)];
-    return new Response(JSON.stringify(randomEntry), {
+    const entry = entries[Math.floor(Math.random() * entries.length)];
+    return new Response(JSON.stringify(entry), {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
-  // Use metadata from canonical data, with fallbacks for legacy data
-  const worksFromEntries = [...new Set(allEntries.map(e => e.work).filter(Boolean))];
+  const worksFromEntries = [...new Set(allEntries.map(e => e.work).filter(Boolean))] as string[];
   const defaultWorks: Record<string, string[]> = {
-    marcus: ['Meditations'],
+    marcus:    ['Meditations'],
     epictetus: ['Enchiridion', 'Discourses'],
-    seneca: ['Letters to Lucilius', 'Essays']
+    seneca:    ['Letters to Lucilius', 'Essays']
   };
 
   const works = metadata.works?.length > 0
     ? metadata.works
     : worksFromEntries.length > 0
       ? worksFromEntries
-      : (defaultWorks[phil as string] || ['Works']);
+      : (defaultWorks[phil as string] ?? ['Works']);
 
-  // Return with metadata wrapper
   return new Response(JSON.stringify({
-    metadata: {
-      ...metadata,
-      works,
-    },
+    metadata: { ...metadata, works },
     entries
   }), {
     headers: { 'Content-Type': 'application/json' }
