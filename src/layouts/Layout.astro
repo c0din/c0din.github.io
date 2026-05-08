@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+import AetherBackground from '../components/AetherBackground.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -13,9 +15,11 @@ const { title, theme = 'atrium' } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
+    <ClientRouter />
   </head>
   <body data-theme={theme} class="min-h-screen selection:bg-pink-500/30">
-    <div id="clouds-layer" class="fixed inset-0 -z-40 pointer-events-none opacity-30 mix-blend-overlay transition-transform duration-700 ease-out">
+    <AetherBackground theme={theme} />
+    <div id="clouds-layer" class="fixed inset-0 -z-40 pointer-events-none opacity-30 mix-blend-overlay" transition:persist="clouds">
       <div class="cloud cloud-1"></div>
       <div class="cloud cloud-2"></div>
       <div class="cloud cloud-3"></div>

@@ -1,0 +1,107 @@
+---
+interface Props {
+  theme: string;
+}
+const { theme } = Astro.props;
+---
+
+<div id="aether-layer" data-theme={theme} transition:persist="aether-bg">
+  <div class="bg-layer atrium-glow"></div>
+  <div class="bg-layer atrium-grid"></div>
+  <div class="bg-layer tactical-grain"></div>
+  <div class="bg-layer cynicism-scanlines"></div>
+  <div class="bg-layer athanor-vignette"></div>
+  <div class="bg-layer stream-mist"></div>
+</div>
+
+<style>
+  #aether-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .bg-layer {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    will-change: opacity;
+  }
+
+  /* ── Atrium: gold radial glow + masonic perspective floor ── */
+  .atrium-glow {
+    inset: 0;
+    background: radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.12) 0%, transparent 60%);
+  }
+
+  .atrium-grid {
+    bottom: -20%;
+    left: -50%;
+    width: 200%;
+    height: 70vh;
+    background-image: repeating-conic-gradient(#161513 0% 25%, #0a0a0c 0% 50%);
+    background-size: 80px 80px;
+    transform: perspective(600px) rotateX(75deg);
+    transform-origin: top center;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 80%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 80%);
+  }
+
+  #aether-layer[data-theme="atrium"] .atrium-glow { opacity: 1; }
+  #aether-layer[data-theme="atrium"] .atrium-grid  { opacity: 0.6; }
+
+  /* ── Tactical: film grain ── */
+  .tactical-grain {
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  #aether-layer[data-theme="tactical"] .tactical-grain { opacity: 1; }
+
+  /* ── Cynicism: phosphor scanlines ── */
+  .cynicism-scanlines {
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255, 176, 0, 0.018) 0px,
+      rgba(255, 176, 0, 0.018) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+
+  #aether-layer[data-theme="cynicism"] .cynicism-scanlines { opacity: 1; }
+
+  /* ── Athanor: alchemical vignette ── */
+  .athanor-vignette {
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%,   rgba(180, 124, 255, 0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 100%, rgba(80, 40, 140, 0.12)   0%, transparent 60%);
+  }
+
+  #aether-layer[data-theme="athanor"] .athanor-vignette { opacity: 1; }
+
+  /* ── Stream: jade mist ── */
+  .stream-mist {
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(93, 227, 160, 0.05) 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 70%, rgba(40, 120, 80, 0.08)  0%, transparent 50%);
+  }
+
+  #aether-layer[data-theme="stream"] .stream-mist { opacity: 1; }
+</style>
+
+<script>
+  document.addEventListener('astro:after-swap', () => {
+    const layer = document.getElementById('aether-layer');
+    const body = document.querySelector('body');
+    if (layer && body) {
+      layer.dataset.theme = body.dataset.theme ?? 'atrium';
+    }
+  });
+</script>
