@@ -61,64 +61,28 @@ body[data-theme="atrium"]::before {
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 80%);
 }
 
-/* ── The Porch — Vaporwave / Retro-Stoic ── */
+/* ── The Porch — Aether (pink/blue gradient) ── */
 body[data-theme="stoicism"] {
-  --bg:               #0b0510;
-  --bg-panel:         rgba(17, 8, 30, 0.85);
-  --accent:           #00ffff;
-  --accent-dim:       rgba(0, 255, 255, 0.15);
-  --text:             #f0f0ff;
-  --text-muted:       rgba(240, 240, 255, 0.4);
-  --qt-fg:            rgba(240, 240, 255, 0.9);
-  --qt-muted:         rgba(240, 240, 255, 0.3);
-  --qt-nav:           rgba(240, 240, 255, 0.55);
-  --qt-decor:         rgba(0, 255, 255, 0.06);
-  --back-link:        rgba(0, 255, 255, 0.35);
-  --back-link-hover:  rgba(0, 255, 255, 0.85);
-  background-color:   var(--bg);
-  color:              var(--text);
+  --accent:           #ff00ff;
+  --accent-dim:       rgba(255, 0, 255, 0.15);
+  --text:             #0f172a;
+  --text-muted:       rgba(15, 23, 42, 0.4);
+  --qt-fg:            #0f172a;
+  --qt-muted:         rgba(15, 23, 42, 0.35);
+  --qt-nav:           rgba(15, 23, 42, 0.65);
+  --qt-decor:         rgba(15, 23, 42, 0.05);
+  --back-link:        rgba(15, 23, 42, 0.3);
+  --back-link-hover:  rgba(15, 23, 42, 0.7);
+  background: linear-gradient(to bottom, #7dd3fc 0%, #fdf2f8 50%, #f9a8d4 100%);
   overflow:           hidden;
 }
 
-body[data-theme="stoicism"] #clouds-layer { display: none; }
-
-/* The Sliced Retro Sun */
-body[data-theme="stoicism"]::after {
-  content: '';
-  position: fixed;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40vh;
-  height: 40vh;
-  border-radius: 50%;
-  background: linear-gradient(to bottom, #ff007f 0%, #ff7700 60%, #00ffff 100%);
-  box-shadow: 0 0 60px rgba(255, 0, 127, 0.4);
-  z-index: -2;
-  pointer-events: none;
-  mask-image: repeating-linear-gradient(to bottom, black 0px, black 8px, transparent 8px, transparent 12px);
-  -webkit-mask-image: repeating-linear-gradient(to bottom, black 0px, black 8px, transparent 8px, transparent 12px);
-}
-
-/* The Neon Perspective Grid */
-body[data-theme="stoicism"]::before {
-  content: '';
-  position: fixed;
-  bottom: -10%;
-  left: -50%;
-  width: 200%;
-  height: 60vh;
-  background-image:
-    linear-gradient(to right, rgba(0, 255, 255, 0.5) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 255, 255, 0.5) 1px, transparent 1px);
-  background-size: 50px 50px;
-  background-color: #0b0510;
-  transform: perspective(400px) rotateX(65deg);
-  transform-origin: top center;
-  z-index: -1;
-  pointer-events: none;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 90%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 90%);
+/* Restore cloud layer */
+body[data-theme="stoicism"] #clouds-layer {
+  display: block;
+  opacity: 0.3;
+  mix-blend-mode: overlay;
+  filter: none;
 }
 
 /* ── The Dojo — Kurosawa Austerity ── */
@@ -249,7 +213,7 @@ body[data-theme="cynicism"] section[data-philosopher] {
 }
 
 /* Selection colors per theme */
-body[data-theme="stoicism"] ::selection { background: rgba(0, 255, 255, 0.25); }
+body[data-theme="stoicism"] ::selection { background: rgba(0, 229, 255, 0.25); }
 body[data-theme="tactical"]  ::selection { background: rgba(194, 59, 34, 0.35); }
 body[data-theme="cynicism"]  ::selection { background: rgba(255, 176, 0, 0.25); }
 
