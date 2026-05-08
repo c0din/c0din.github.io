@@ -60,6 +60,20 @@ import marcusImg from '../assets/images/marcus.png';
         href="/school/tactical"
         accent="rgba(0, 255, 120, 0.8)"
       />
+      <WingCard
+        title="The Athanor"
+        tradition="Depth"
+        philosophers={["Carl Jung"]}
+        href="/school/athanor"
+        accent="rgba(180, 124, 255, 0.8)"
+      />
+      <WingCard
+        title="The Stream"
+        tradition="Taoism"
+        philosophers={["Laozi"]}
+        href="/school/stream"
+        accent="rgba(93, 227, 160, 0.8)"
+      />
     </nav>
 
   </div>
@@ -221,6 +235,12 @@ import marcusImg from '../assets/images/marcus.png';
     .wings-grid {
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .wings-grid {
+      grid-template-columns: repeat(5, 1fr);
     }
   }
 </style>

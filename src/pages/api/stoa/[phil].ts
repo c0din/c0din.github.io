@@ -5,6 +5,8 @@ import epictetus from '../../../../public/assets/stoa/epictetus.json';
 import seneca from '../../../../public/assets/stoa/seneca.json';
 import diogenes from '../../../../public/assets/stoa/diogenes.json';
 import musashi from '../../../../public/assets/stoa/musashi.json';
+import jung from '../../../../public/assets/stoa/jung.json';
+import daodejing from '../../../../public/assets/stoa/daodejing.json';
 
 type CanonicalData = {
   metadata: {
@@ -50,14 +52,18 @@ const dataMap: Record<string, CanonicalData> = {
   epictetus: normalizeData(epictetus,   'stoicism'),
   seneca:    normalizeData(seneca,      'stoicism'),
   diogenes:  normalizeData(diogenes,    'cynicism'),
-  musashi:   normalizeData(musashi,     'tactical')
+  musashi:   normalizeData(musashi,     'tactical'),
+  jung:      normalizeData(jung,        'athanor'),
+  laozi:     normalizeData(daodejing,   'stream'),
 };
 
 // All philosophers indexed by school for the /api/stoa/school?name= pattern
 const schoolIndex: Record<string, string[]> = {
   stoicism: ['marcus', 'epictetus', 'seneca'],
   cynicism: ['diogenes'],
-  tactical: ['musashi']
+  tactical: ['musashi'],
+  athanor:  ['jung'],
+  stream:   ['laozi'],
 };
 
 export const GET: APIRoute = ({ params, url }) => {
@@ -107,6 +113,25 @@ export const GET: APIRoute = ({ params, url }) => {
       5: 'The Book of Five Rings (The Ether Scroll)',
     };
     entries = entries.map(e => ({ ...e, work: scrolls[e.book as number] ?? 'The Book of Five Rings' }));
+  }
+
+  // Jung — synthesize chapter names from book number
+  if (phil === 'jung') {
+    const chapters: Record<number, string> = {
+      1:  'First Years',
+      2:  'School Years',
+      3:  'Student Years',
+      4:  'Psychiatric Activities',
+      5:  'Sigmund Freud',
+      6:  'Confrontation with the Unconscious',
+      7:  'The Work',
+      8:  'The Tower',
+      9:  'Travels',
+      10: 'Visions',
+      11: 'On Life after Death',
+      12: 'Late Thoughts',
+    };
+    entries = entries.map(e => ({ ...e, work: chapters[e.book as number] ?? 'Memories, Dreams, Reflections' }));
   }
 
   if (work)  entries = entries.filter(e => e.work === work);
