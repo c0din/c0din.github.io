@@ -1,10 +1,277 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import QuoteGenerator from '../components/QuoteGenerator.astro';
+import WingCard from '../components/WingCard.astro';
+import { Image } from 'astro:assets';
+import marcusImg from '../assets/images/marcus.png';
 ---
 
-<Layout title="c0din | Stoic Developer">
-  <main class="min-h-screen flex items-center justify-center">
-    <QuoteGenerator />
-  </main>
+<Layout title="c0din | The Atrium" dark={true}>
+  <div class="atrium">
+
+    <!-- Header -->
+    <header class="atrium-header">
+      <span class="site-name">c0din</span>
+      <span class="site-tagline">Stoic Developer</span>
+    </header>
+
+    <!-- Oracle -->
+    <section class="oracle-section">
+      <div id="oracle-bust" class="oracle-bust" title="Click to draw a new passage">
+        <Image
+          src={marcusImg}
+          alt="Marcus Aurelius"
+          width={240}
+          class="oracle-img"
+        />
+      </div>
+
+      <div class="oracle-body">
+        <div class="oracle-quote-wrap">
+          <p id="oracle-text" class="oracle-text">—</p>
+        </div>
+        <cite id="oracle-cite" class="oracle-cite">Marcus Aurelius · Meditations</cite>
+        <div class="oracle-controls">
+          <span class="oracle-label">Daily Oracle</span>
+          <button id="oracle-shuffle" class="oracle-shuffle" title="Draw another passage">↺ Reshuffle</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wings -->
+    <nav class="wings-grid">
+      <WingCard
+        title="The Porch"
+        tradition="Stoicism"
+        philosophers={["Marcus Aurelius", "Epictetus", "Seneca"]}
+        href="/school/stoicism"
+        accent="rgba(0, 200, 255, 0.8)"
+      />
+      <WingCard
+        title="The Barrel"
+        tradition="Cynicism"
+        philosophers={["Diogenes"]}
+        href="/school/cynicism"
+        accent="rgba(180, 180, 180, 0.8)"
+      />
+      <WingCard
+        title="The Dojo"
+        tradition="Tactical"
+        philosophers={["Miyamoto Musashi"]}
+        href="/school/tactical"
+        accent="rgba(0, 255, 120, 0.8)"
+      />
+    </nav>
+
+  </div>
 </Layout>
+
+<style>
+  .atrium {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.5rem 2rem;
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .atrium-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.5rem 0 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 1rem;
+  }
+
+  .site-name {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .site-tagline {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* ── Oracle ── */
+  .oracle-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 0 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .oracle-section {
+      flex-direction: row;
+      align-items: center;
+      gap: 4rem;
+      padding: 4rem 0 3rem;
+    }
+  }
+
+  .oracle-bust {
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+  }
+
+  .oracle-bust:hover { transform: scale(1.04); }
+  .oracle-bust:active { transform: scale(0.97); }
+
+  .oracle-img {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.45));
+    transition: filter 0.4s ease;
+  }
+
+  .oracle-bust:hover .oracle-img {
+    filter: drop-shadow(0 0 32px rgba(255, 0, 255, 0.65));
+  }
+
+  @media (min-width: 768px) {
+    .oracle-img { width: 240px; }
+  }
+
+  .oracle-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 38rem;
+  }
+
+  .oracle-quote-wrap {
+    position: relative;
+  }
+
+  .oracle-text {
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.82);
+    letter-spacing: 0.01em;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .oracle-text.fading {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  .oracle-cite {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255, 0, 255, 0.5);
+    font-style: normal;
+  }
+
+  .oracle-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .oracle-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.15);
+  }
+
+  .oracle-shuffle {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+  }
+
+  .oracle-shuffle:hover { color: rgba(255, 255, 255, 0.6); }
+
+  /* ── Wings Grid ── */
+  .wings-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .wings-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+  }
+</style>
+
+<script>
+  const textEl  = document.getElementById('oracle-text') as HTMLElement;
+  const citeEl  = document.getElementById('oracle-cite') as HTMLElement;
+  const bustEl  = document.getElementById('oracle-bust');
+  const shuffleBtn = document.getElementById('oracle-shuffle');
+
+  async function fetchDaily() {
+    const res = await fetch('/api/oracle/daily');
+    return res.json();
+  }
+
+  async function fetchRandom() {
+    const res = await fetch('/api/stoa/marcus?random=true');
+    return res.json();
+  }
+
+  function setQuote(entry: any, source: 'daily' | 'random') {
+    if (!entry || !(textEl instanceof HTMLElement) || !(citeEl instanceof HTMLElement)) return;
+
+    textEl.classList.add('fading');
+
+    setTimeout(() => {
+      const text = entry.text?.long ?? entry.text?.english ?? entry.english ?? '—';
+      const book  = entry.book  ? `Book ${entry.book}`  : '';
+      const verse = entry.verse ? `Verse ${entry.verse}` : '';
+      const ref   = [book, verse].filter(Boolean).join(' · ');
+
+      textEl.textContent = text;
+      citeEl.textContent = `Marcus Aurelius · Meditations${ref ? ' · ' + ref : ''}`;
+      if (source === 'daily') citeEl.textContent += ' · Daily Draw';
+
+      textEl.classList.remove('fading');
+    }, 350);
+  }
+
+  // Load daily oracle on mount
+  fetchDaily()
+    .then(({ entry }) => setQuote(entry, 'daily'))
+    .catch(() => fetchRandom().then(entry => setQuote(entry, 'random')));
+
+  // Bust click → daily reshuffle
+  bustEl?.addEventListener('click', () =>
+    fetchDaily().then(({ entry }) => setQuote(entry, 'daily'))
+  );
+
+  // Shuffle button → truly random
+  shuffleBtn?.addEventListener('click', () =>
+    fetchRandom().then(entry => setQuote(entry, 'random'))
+  );
+</script>

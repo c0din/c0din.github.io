@@ -1,6 +1,12 @@
 {
   "metadata": {
-    "works": ["The Book of Five Rings (The Earth Scroll)"],
+    "works": [
+      "The Book of Five Rings (The Earth Scroll)",
+      "The Book of Five Rings (The Water Scroll)",
+      "The Book of Five Rings (The Fire Scroll)",
+      "The Book of Five Rings (The Wind Scroll)",
+      "The Book of Five Rings (The Ether Scroll)"
+    ],
     "author": "Miyamoto Musashi",
     "school": "tactical",
     "translations": {
@@ -88,6 +94,318 @@
         "standard": "The warrior should avoid harboring a preference for any given weapon. Too much of one thing is just as bad as not enough. Without imitating others, you should have as many weapons as suits you, and be able to use them all. It is bad to cherish symbols over substance."
       },
       "tags": ["weapons", "balance", "mastery"]
+    },
+    {
+      "book": 2,
+      "verse": 1,
+      "text": {
+        "standard": "The essence of my Niten Ichi-ryū is predicated on the properties of water... It is difficult to express in writing the intricacies of this Way in the manner I would like. Even if words are insufficient, careful contemplation should heighten an intuitive understanding of the principles I am trying to convey."
+      },
+      "tags": ["water", "intuition", "understanding"]
+    },
+    {
+      "book": 2,
+      "verse": 2,
+      "text": {
+        "standard": "The mindset in the Way of combat must be no different from one's normal state of mind. In the course of your daily life, and when engaged in strategy, there should be no change whatsoever in your outlook. Your mind should be expansive and direct, devoid of tension, but not at all casual. Keep your mind centered, not leaning too much to one side, swaying serenely and freely so that it does not come to a standstill in moments of change."
+      },
+      "tags": ["mindset", "balance", "calm", "psychology"]
+    },
+    {
+      "book": 2,
+      "verse": 3,
+      "text": {
+        "standard": "The mind is not static even in times of calm. In times of haste, the mind does not rush. The body does not carry the mind and the mind does not carry the body. The mind should be vigilant when the body is exposed. The mind must not be absent nor be excessive. Both the high-spirited mind and the lethargic mind are signs of weakness."
+      },
+      "tags": ["mindset", "vigilance", "balance"]
+    },
+    {
+      "book": 2,
+      "verse": 4,
+      "text": {
+        "standard": "Be sure to maintain a spirit that is untainted and extensive. Wisdom will settle in the seat of a broad mind. It is crucial to enrich your mind and your wisdom. By enhancing your wisdom, you will be able to sense what is reasonable and unreasonable in the world and will learn the difference between good and evil. You can then see commonality in the Ways of different arts and you will not be open to deception."
+      },
+      "tags": ["wisdom", "truth", "perception"]
+    },
+    {
+      "book": 2,
+      "verse": 5,
+      "text": {
+        "standard": "One's gaze should be expansive and far-reaching. This is the dual gaze of 'looking in' and 'looking at'. The gaze for 'looking in' is intense whereas that for 'looking at' is gentle. It is of utmost importance for a warrior to see distant things as if they were close and close things as if they were distant. The warrior must know the enemy's sword without even seeing it."
+      },
+      "tags": ["gaze", "perception", "focus"]
+    },
+    {
+      "book": 2,
+      "verse": 6,
+      "text": {
+        "standard": "Do not allow your hands or sword to become rigid. A rigid hand is a dead hand. A fluid hand is the hand of life. Study this point carefully."
+      },
+      "tags": ["fluidity", "technique", "adaptability"]
+    },
+    {
+      "book": 2,
+      "verse": 7,
+      "text": {
+        "standard": "The teaching of 'stance, no-stance' means that you must not focus your mind on assuming a particular fighting stance... You must hold the longsword so that you can cut your enemy convincingly at any time. If you assume the upper stance, you can lower your longsword to the middle stance as required... This is why I teach 'There are stances, but there is no stance.'"
+      },
+      "tags": ["stance", "adaptability", "formless"]
+    },
+    {
+      "book": 2,
+      "verse": 8,
+      "text": {
+        "standard": "When you and your opponent attack simultaneously, your body becomes the 'striking body' and your mind becomes the 'striking mind.' As such, your hands will also strike spontaneously with power, speed and no warning. This is the strike of 'no-thought no-form' and is of the utmost importance."
+      },
+      "tags": ["no-thought", "action", "spontaneity"]
+    },
+    {
+      "book": 2,
+      "verse": 9,
+      "text": {
+        "standard": "Striking your enemy with the sword and hitting him are different. A strike must be executed with resolve, no matter what. To hit is essentially probing for prospects. Even if the enemy succumbs to a strong hit, a hit is still a hit. The strike is a conscious effort to cut through. The swordsman must understand this difference."
+      },
+      "tags": ["resolve", "action", "intent"]
+    },
+    {
+      "book": 2,
+      "verse": 10,
+      "text": {
+        "standard": "Traverse the thousand-mile road one step at a time. Haste not in your training in the knowledge that this is the warrior's calling. Seek victory today over the self of yesterday. Tomorrow, conquer your shortcomings and then build your strong points. Practice all I have written here, mindful of not veering from the path."
+      },
+      "tags": ["discipline", "kaizen", "training", "growth"]
+    },
+    {
+      "book": 2,
+      "verse": 11,
+      "text": {
+        "standard": "Even if you defeat the most daunting of adversaries, if your victories are not in accord with the principles contained within these scrolls, then they cannot be considered true to the Way. Embracing the principles of the Way, you can prevail over dozens of men."
+      },
+      "tags": ["principles", "truth", "victory"]
+    },
+    {
+      "book": 2,
+      "verse": 12,
+      "text": {
+        "standard": "One thousand days of training to forge, ten thousand days of training to refine. Be mindful of this."
+      },
+      "tags": ["mastery", "discipline", "time"]
+    },
+    {
+      "book": 3,
+      "verse": 1,
+      "text": {
+        "standard": "In the Nitō Ichi-ryū I consider battle in terms of fire... I have learned the Way of the sword by risking everything in the divide between life and death. It is illogical to dwell on small, weak techniques as you prepare yourself to slay an enemy. You must therefore engage in individual combat to work out the enemy's tactics, to know his strengths, weaknesses and methods, and then to be able to draw on your insights of strategy to beat all and sundry."
+      },
+      "tags": ["fire", "experience", "strategy", "action"]
+    },
+    {
+      "book": 3,
+      "verse": 2,
+      "text": {
+        "standard": "There is such a thing as 'bearing the sun' when assessing the place of combat; that is, to take your stance with the sun at your back... At all times make use of the location's features and, above all, seek to 'win the place.' Study this strategy well and train diligently."
+      },
+      "tags": ["environment", "tactics", "positioning"]
+    },
+    {
+      "book": 3,
+      "verse": 3,
+      "text": {
+        "standard": "Of the three initiatives, the first is to initiate the attack before the enemy does. The second initiative is to attack the enemy after he initiates first. The third initiative is to attack the enemy as he attacks you. Regardless of the method of combat, once a fight is underway there are no other initiatives other than these three. Taking the initiative is the key to quick victory and is thus the most crucial aspect of combat strategy."
+      },
+      "tags": ["initiative", "timing", "attack"]
+    },
+    {
+      "book": 3,
+      "verse": 4,
+      "text": {
+        "standard": "Stopping the start involves not allowing the enemy's head to rise. In the Way of combat is it perilous to go on the defensive in a bout by allowing yourself to be manipulated. Whatever it takes, you must be the one who dominates... Stifling the enemy's technique at the start just as he contemplates striking, and taking control without giving him a chance to succeed, is the hallmark of a master of strategy."
+      },
+      "tags": ["anticipation", "control", "domination"]
+    },
+    {
+      "book": 3,
+      "verse": 5,
+      "text": {
+        "standard": "In swordsmanship and in the midst of pitched battle, the ability to know the right moment to traverse a critical point is essential. Know the enemy's strengths and have a firm grasp of your own capabilities. Traverse the peril at the optimum point just as a worthy mariner navigates ocean routes. Once crossed, the mind becomes tranquil."
+      },
+      "tags": ["navigation", "timing", "crisis"]
+    },
+    {
+      "book": 3,
+      "verse": 6,
+      "text": {
+        "standard": "Knowing the conditions in large-scale battle strategy is to detect if the enemy is flourishing or failing... When you can move freely in combat, you will see into the enemy's mind and find many ways to win. Use your ingenuity."
+      },
+      "tags": ["observation", "perception", "ingenuity"]
+    },
+    {
+      "book": 3,
+      "verse": 7,
+      "text": {
+        "standard": "All things are prone to collapse. Houses collapse, the body collapses and enemies collapse when their time is up... Just as he is on the verge of collapse, immediately rush at him and attack relentlessly so that he cannot even look up. Charge straight at him with single-minded resolve. Beat him to a pulp so that he has no chance to reorganize."
+      },
+      "tags": ["relentless", "collapse", "destruction"]
+    },
+    {
+      "book": 3,
+      "verse": 8,
+      "text": {
+        "standard": "Becoming your enemy is to put yourself in his place. Think of a burglar who is holed up in a house he is attempting to rob. We are prone to overestimating the enemy's strengths. By putting yourself in his position, however, you realize that he must feel that the whole world is against him. With no way out, he is like a pheasant in a cage. The assailant zooming in to kill him is a falcon."
+      },
+      "tags": ["empathy", "psychology", "perspective"]
+    },
+    {
+      "book": 3,
+      "verse": 9,
+      "text": {
+        "standard": "The mind of mountain-sea means that it is perilous to execute the same move repeatedly in a fight. It may be unavoidable to employ a tactic twice but never do it three times. If an attack is unsuccessful, keep applying pressure and try again. If it still has no effect, quickly adapt and change your approach... when the enemy is thinking of mountain, attack him as the sea. If he is thinking sea, take him down as the mountain."
+      },
+      "tags": ["adaptability", "unpredictability", "tactics"]
+    },
+    {
+      "book": 3,
+      "verse": 10,
+      "text": {
+        "standard": "When you and the enemy have become fixated on particulars in the engagement, think of the Way of strategy as being both a rat's head and an ox's neck. When you are fighting with subtleties, suddenly expand your mind and transform into something big. Transitioning between large and small is essential in strategy."
+      },
+      "tags": ["perspective", "scale", "mindset"]
+    },
+    {
+      "book": 3,
+      "verse": 11,
+      "text": {
+        "standard": "In this Way, if you study relentlessly to build strategic wisdom, you will come to think of the enemy troops as your own and be able to command them to move as you see fit. You will be able to direct at will. You are the general and the enemy are your men. Be sure to master this strategy."
+      },
+      "tags": ["leadership", "control", "wisdom"]
+    },
+    {
+      "book": 4,
+      "verse": 1,
+      "text": {
+        "standard": "Mastering combat strategy requires studying the Ways of other schools... The principles of my school are in a class of their own. Other schools extol the virtues of their colorful, flowery techniques like produce peddled to make a living. Is this not a deviation from the true Way?"
+      },
+      "tags": ["observation", "truth", "strategy"]
+    },
+    {
+      "book": 4,
+      "verse": 2,
+      "text": {
+        "standard": "It is said that 'even an extra inch gives the upper hand.' However, this is a meaningless teaching advocated by those ignorant of combat strategy. With no understanding of the deeper principles of strategy, they seek to win from a safer distance with a longer weapon... preference for a long sword will be your undoing as it a copout in strategic ability."
+      },
+      "tags": ["weapons", "adaptability", "environment"]
+    },
+    {
+      "book": 4,
+      "verse": 3,
+      "text": {
+        "standard": "One should not consider a sword stroke in terms of being strong or weak. The cut will be coarse if the sword is brandished with too much brute force. Such an uneven technique will make victory difficult. You will not succeed in cutting through human flesh and bone if you think only of striking with brute force."
+      },
+      "tags": ["force", "technique", "principles"]
+    },
+    {
+      "book": 4,
+      "verse": 4,
+      "text": {
+        "standard": "If you are accustomed to blocking, evading, disengaging or deflecting attacks in the course of your training, it will become ingrained and you will be inadvertently influenced by the enemy's ploys. The Way of combat strategy is direct and true, and it is vital to employ correct principles when assailing the enemy so that he is the one who succumbs to you."
+      },
+      "tags": ["weapons", "initiative", "habit"]
+    },
+    {
+      "book": 4,
+      "verse": 5,
+      "text": {
+        "standard": "Teaching myriad sword techniques is essentially exploiting the Way as a commercial venture. By bamboozling novices with countless moves, teachers make them believe that their training method is profound. This approach in strategy should be rejected... There are not so many ways to cut in the world."
+      },
+      "tags": ["simplicity", "form", "truth"]
+    },
+    {
+      "book": 4,
+      "verse": 6,
+      "text": {
+        "standard": "It is a mistake attaching too much importance to sword stances. That there are so many stances emphasized in the world of sword strategy implies that there are no enemies to fight... To assume a stance is a declaration of your intention to wait for the opponent to move. Consider this with caution. In the Way of combat strategy, it is mandatory to unsettle the enemy's stance, assail him in ways he least expects, make him panic, irritate him, intimidate him and triumph by capitalizing on his confused cadence."
+      },
+      "tags": ["stance", "initiative", "formless"]
+    },
+    {
+      "book": 4,
+      "verse": 7,
+      "text": {
+        "standard": "Setting your gaze on specific points will cause uncertainty and will adversely affect your strategy... fixing the gaze in strategy is to attach it to an enemy's mind. With practice in the Way, you will come to see everything, from reach to the speed of the sword."
+      },
+      "tags": ["gaze", "perception", "mind"]
+    },
+    {
+      "book": 4,
+      "verse": 8,
+      "text": {
+        "standard": "In our school, nothing about the feet changes. It is no different from routinely walking down a road. In accordance with the enemy's cadence, when hurrying, do so with an unhurried bearing without moving too little or too much, ensuring that your steps do not become inconsistent."
+      },
+      "tags": ["footwork", "movement", "calm"]
+    },
+    {
+      "book": 4,
+      "verse": 9,
+      "text": {
+        "standard": "Speed in combat is irrelevant in the real Way. In all things, what is referred to as 'fast' means that the intervals are out of sync with the rhythm... The movements of a master in some discipline will not appear to be fast... Whatever the case, a skilled practitioner never appears to be rushed."
+      },
+      "tags": ["speed", "cadence", "rhythm", "mastery"]
+    },
+    {
+      "book": 4,
+      "verse": 10,
+      "text": {
+        "standard": "As for the principles of combatting an enemy with a sword, there is no such thing as fighting with exterior techniques and cutting with interior teachings... Experience of actual combat is the only way to remember the teachings, so there is no distinction between 'interior' and 'exterior'... The student is taught how to enter into the true path of warrior principles and to liberate his mind from the shackles of doubt."
+      },
+      "tags": ["teaching", "experience", "truth"]
+    },
+    {
+      "book": 5,
+      "verse": 1,
+      "text": {
+        "standard": "The Way of combat in Nitō Ichi-ryū is made clear in the Ether Scroll. The Ether is a place where there is nothing. I consider this emptiness as something which cannot be known. Of course, Ether is also nothing. Knowing what does exist, one can then know what does not. This is what I mean by 'Ether.'"
+      },
+      "tags": ["ether", "emptiness", "perception"]
+    },
+    {
+      "book": 5,
+      "verse": 2,
+      "text": {
+        "standard": "The warrior must scrupulously learn by heart the Way of combat strategy and thoroughly study other martial arts without forgoing any aspect related to the practice of the warrior's Way. He must seek to put the Way into practice each hour of every day without tiring or losing focus."
+      },
+      "tags": ["discipline", "focus", "training"]
+    },
+    {
+      "book": 5,
+      "verse": 3,
+      "text": {
+        "standard": "He must polish the two layers of his mind, the 'heart of perception' and the 'heart of intent,' and sharpen his two powers of observation, the gazes of 'looking in' and 'looking at'. He must recognize that the true Ether is where all the clouds of confusion have completely lifted, leaving not a hint of haziness."
+      },
+      "tags": ["mind", "perception", "clarity", "gaze"]
+    },
+    {
+      "book": 5,
+      "verse": 4,
+      "text": {
+        "standard": "When the spirit is uncurled and compared with overarching universal principles, it becomes evident that a prejudiced mind and a distorted view of things have led to a departure from the proper path. Know this mind and use what is straight as your foundation. Make the sincere heart your Way as you practice strategy in its broadest sense, correctly and lucidly."
+      },
+      "tags": ["truth", "sincerity", "path", "foundation"]
+    },
+    {
+      "book": 5,
+      "verse": 5,
+      "text": {
+        "standard": "Ponder the Ether as you study the Way. As you practice the Way, the Ether will open before you."
+      },
+      "tags": ["ether", "practice", "enlightenment"]
+    },
+    {
+      "book": 5,
+      "verse": 6,
+      "text": {
+        "standard": "There is Good, not Evil in the Ether\nThere is Wisdom\nThere is Reason\nThere is the Way\nThe Mind, Empty"
+      },
+      "tags": ["wisdom", "reason", "emptiness"]
     }
   ]
 }

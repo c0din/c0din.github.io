@@ -5,22 +5,22 @@ import marcusImg from '../assets/images/marcus.png';
 import epictetusImg from '../assets/images/epictetus.png';
 import senecaImg from '../assets/images/seneca.png';
 import diogenesImg from '../assets/images/diogenes.png';
+import musashiImg from '../assets/images/musashi.png';
 
 interface PhilosopherConfig {
   id: string;
   name: string;
   title: string;
   glow: string;
-  image?: ImageMetadata;
-  symbol?: string;
+  image: ImageMetadata;
 }
 
 const catalog: PhilosopherConfig[] = [
-  { id: 'marcus',    name: 'Marcus Aurelius',   title: 'the Emperor', image: marcusImg,    glow: 'rgba(255, 0, 255, 0.5)' },
-  { id: 'epictetus', name: 'Epictetus',          title: 'the Teacher', image: epictetusImg, glow: 'rgba(0, 242, 255, 0.4)' },
-  { id: 'seneca',    name: 'Seneca',             title: 'the Advisor', image: senecaImg,    glow: 'rgba(255, 255, 0, 0.3)' },
-  { id: 'diogenes',  name: 'Diogenes',           title: 'the Cynic',   image: diogenesImg,  glow: 'rgba(128, 128, 128, 0.5)' },
-  { id: 'musashi',   name: 'Miyamoto Musashi',   title: 'the Warrior', symbol: '刀',        glow: 'rgba(255, 60, 0, 0.6)' },
+  { id: 'marcus',    name: 'Marcus Aurelius',  title: 'the Emperor', image: marcusImg,    glow: 'rgba(255, 0, 255, 0.5)' },
+  { id: 'epictetus', name: 'Epictetus',         title: 'the Teacher', image: epictetusImg, glow: 'rgba(0, 242, 255, 0.4)' },
+  { id: 'seneca',    name: 'Seneca',            title: 'the Advisor', image: senecaImg,    glow: 'rgba(255, 255, 0, 0.3)' },
+  { id: 'diogenes',  name: 'Diogenes',          title: 'the Cynic',   image: diogenesImg,  glow: 'rgba(128, 128, 128, 0.5)' },
+  { id: 'musashi',   name: 'Miyamoto Musashi',  title: 'the Warrior', image: musashiImg,   glow: 'rgba(0, 255, 120, 0.5)' },
 ];
 
 interface Props {
@@ -38,22 +38,13 @@ const philosophers = ids
     <section class="h-screen w-full flex flex-col items-center justify-center snap-start relative overflow-hidden px-6 pb-20" data-philosopher={phil.id}>
 
       <div class="bust-trigger cursor-pointer transition-all duration-700 active:scale-95 group z-20">
-        {phil.image ? (
-          <Image
-            src={phil.image}
-            alt={phil.name}
-            class="w-56 md:w-72 h-auto transition-transform duration-700 group-hover:scale-105"
-            style={`filter: drop-shadow(0 0 15px ${phil.glow})`}
-            width={288}
-          />
-        ) : (
-          <div
-            class="w-56 md:w-72 h-56 md:h-72 flex items-center justify-center transition-transform duration-700 group-hover:scale-105"
-            style={`filter: drop-shadow(0 0 15px ${phil.glow})`}
-          >
-            <span class="bust-symbol text-[10rem] leading-none select-none">{phil.symbol}</span>
-          </div>
-        )}
+        <Image
+          src={phil.image}
+          alt={phil.name}
+          class="w-56 md:w-72 h-auto transition-transform duration-700 group-hover:scale-105"
+          style={`filter: drop-shadow(0 0 15px ${phil.glow})`}
+          width={288}
+        />
       </div>
 
       <div class="z-20 text-center mt-4">

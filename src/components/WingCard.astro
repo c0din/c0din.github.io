@@ -1,0 +1,88 @@
+---
+interface Props {
+  title: string;
+  tradition: string;
+  philosophers: string[];
+  href: string;
+  accent: string;
+}
+const { title, tradition, philosophers, href, accent } = Astro.props;
+---
+
+<a href={href} class="wing-card" style={`--accent: ${accent}`}>
+  <div class="wing-top">
+    <span class="wing-tradition">{tradition}</span>
+    <h2 class="wing-title">{title}</h2>
+  </div>
+  <ul class="wing-philosophers">
+    {philosophers.map(p => <li>{p}</li>)}
+  </ul>
+  <span class="wing-enter">Enter →</span>
+</a>
+
+<style>
+  .wing-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.03);
+    text-decoration: none;
+    transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .wing-card:hover {
+    border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 24px -4px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+
+  .wing-tradition {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent) 90%, white);
+    margin-bottom: 0.25rem;
+  }
+
+  .wing-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+  }
+
+  .wing-philosophers {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+  }
+
+  .wing-philosophers li {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    padding: 0.15rem 0;
+  }
+
+  .wing-enter {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    transition: color 0.2s ease;
+  }
+
+  .wing-card:hover .wing-enter {
+    color: color-mix(in srgb, var(--accent) 80%, white);
+  }
+</style>
