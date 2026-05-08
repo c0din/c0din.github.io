@@ -29,48 +29,28 @@ body[data-theme="atrium"] {
 
 body[data-theme="atrium"] #clouds-layer { display: none; }
 
-/* ── The Porch — Cinematic Synthwave ── */
+/* ── The Porch — Aether (original pink/blue gradient) ── */
 body[data-theme="stoicism"] {
-  --bg:               #050510;
-  --bg-panel:         #0d0b1a;
-  --accent:           #00e5ff;
-  --accent-secondary: #ff007f;
-  --accent-dim:       rgba(0, 229, 255, 0.12);
-  --text:             #e6e6fa;
-  --text-muted:       rgba(230, 230, 250, 0.35);
-  --qt-fg:            rgba(230, 230, 250, 0.88);
-  --qt-muted:         rgba(230, 230, 250, 0.28);
-  --qt-nav:           rgba(230, 230, 250, 0.55);
-  --qt-decor:         rgba(230, 230, 250, 0.04);
-  --back-link:        rgba(0, 229, 255, 0.3);
-  --back-link-hover:  rgba(0, 229, 255, 0.75);
-  background-color:   var(--bg);
-  color:              var(--text);
+  --accent:           #ff00ff;
+  --accent-dim:       rgba(255, 0, 255, 0.15);
+  --text:             #0f172a;
+  --text-muted:       rgba(15, 23, 42, 0.4);
+  --qt-fg:            #0f172a;
+  --qt-muted:         rgba(15, 23, 42, 0.35);
+  --qt-nav:           rgba(15, 23, 42, 0.65);
+  --qt-decor:         rgba(15, 23, 42, 0.05);
+  --back-link:        rgba(15, 23, 42, 0.3);
+  --back-link-hover:  rgba(15, 23, 42, 0.7);
+  background: linear-gradient(to bottom, #7dd3fc 0%, #fdf2f8 50%, #f9a8d4 100%);
   overflow:           hidden;
 }
 
-/* Synthwave scanlines */
-body[data-theme="stoicism"]::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 229, 255, 0.016) 0px,
-    rgba(0, 229, 255, 0.016) 1px,
-    transparent 1px,
-    transparent 4px
-  );
-}
-
-/* Neon-tinted cloud layer */
+/* Restore original cloud layer */
 body[data-theme="stoicism"] #clouds-layer {
   display: block;
-  opacity: 0.1;
-  mix-blend-mode: screen;
-  filter: hue-rotate(195deg) saturate(4) brightness(1.4);
+  opacity: 0.3;
+  mix-blend-mode: overlay;
+  filter: none;
 }
 
 /* ── The Dojo — Kurosawa Austerity ── */

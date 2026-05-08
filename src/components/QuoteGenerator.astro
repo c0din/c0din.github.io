@@ -274,7 +274,8 @@ const philosophers = ids
 
     let entry: any;
     if (random) {
-      entry = filteredEntries[Math.floor(Math.random() * filteredEntries.length)];
+      // Shuffle across ALL entries, not just the current work's subset
+      entry = entries[Math.floor(Math.random() * entries.length)];
       if (entry.work) philState.work = entry.work;
       philState.book = entry.book || null;
       philState.verse = entry.verse || entry.chapter || entry.letter;
