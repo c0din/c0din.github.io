@@ -48,7 +48,7 @@ const philosophers = ids
       </div>
 
       <div class="z-20 text-center mt-4">
-        <p class="text-[10px] uppercase tracking-[0.6em] text-slate-900/40 font-black mb-3">{phil.name}</p>
+        <p class="phil-label text-[10px] uppercase tracking-[0.6em] text-slate-900/40 font-black mb-3">{phil.name}</p>
 
         <nav class="flex items-center justify-center gap-1.5 text-[11px] font-medium text-slate-900/70 uppercase tracking-widest leading-none">
           <select data-nav="work" class="nav-select nav-bold">
@@ -70,8 +70,8 @@ const philosophers = ids
       </div>
 
       <div class="relative w-full max-w-3xl mt-8 group/quote z-20 px-4">
-        <span class="absolute -top-12 -left-4 text-8xl font-serif text-slate-900/5 select-none pointer-events-none">"</span>
-        <span class="absolute -bottom-12 -right-4 text-8xl font-serif text-slate-900/5 select-none pointer-events-none">"</span>
+        <span class="quote-deco absolute -top-12 -left-4 text-8xl font-serif text-slate-900/5 select-none pointer-events-none">"</span>
+        <span class="quote-deco absolute -bottom-12 -right-4 text-8xl font-serif text-slate-900/5 select-none pointer-events-none">"</span>
 
         <button class="copy-btn absolute right-0 -top-6 opacity-0 transition-opacity p-2 text-slate-900/20 hover:text-slate-900" title="Copy Quote" aria-label="Copy quote to clipboard">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>

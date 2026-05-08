@@ -4,48 +4,196 @@
   --color-neon-pink: #ff00ff;
   --color-neon-blue: #00f2ff;
   --color-stoic-teal: #7fdbff;
-
   --font-sans: 'Montserrat', sans-serif;
 }
 
-/* Scanline overlay effect */
-.scanlines {
-  background: linear-gradient(
-    to bottom,
-    rgba(18, 16, 16, 0) 50%,
-    rgba(0, 0, 0, 0.25) 50%
+/* ─────────────────────────────────────────
+   THEME SYSTEM  (data-theme on <body>)
+───────────────────────────────────────── */
+
+/* ── Atrium — Celestial Obsidian ── */
+body,
+body[data-theme="atrium"] {
+  --bg:               #07080f;
+  --bg-panel:         #12111c;
+  --accent:           #d4af37;
+  --accent-dim:       rgba(212, 175, 55, 0.2);
+  --text:             #e0d8c8;
+  --text-muted:       rgba(224, 216, 200, 0.4);
+  --back-link:        rgba(212, 175, 55, 0.35);
+  --back-link-hover:  rgba(212, 175, 55, 0.8);
+  background-color:   var(--bg);
+  color:              var(--text);
+  overflow:           auto;
+}
+
+body[data-theme="atrium"] #clouds-layer { display: none; }
+
+/* ── The Porch — Cinematic Synthwave ── */
+body[data-theme="stoicism"] {
+  --bg:               #050510;
+  --bg-panel:         #0d0b1a;
+  --accent:           #00e5ff;
+  --accent-secondary: #ff007f;
+  --accent-dim:       rgba(0, 229, 255, 0.12);
+  --text:             #e6e6fa;
+  --text-muted:       rgba(230, 230, 250, 0.35);
+  --qt-fg:            rgba(230, 230, 250, 0.88);
+  --qt-muted:         rgba(230, 230, 250, 0.28);
+  --qt-nav:           rgba(230, 230, 250, 0.55);
+  --qt-decor:         rgba(230, 230, 250, 0.04);
+  --back-link:        rgba(0, 229, 255, 0.3);
+  --back-link-hover:  rgba(0, 229, 255, 0.75);
+  background-color:   var(--bg);
+  color:              var(--text);
+  overflow:           hidden;
+}
+
+/* Synthwave scanlines */
+body[data-theme="stoicism"]::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 229, 255, 0.016) 0px,
+    rgba(0, 229, 255, 0.016) 1px,
+    transparent 1px,
+    transparent 4px
   );
-  background-size: 100% 4px;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-stoic-teal);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-neon-pink);
-  border-radius: 10px;
+/* Neon-tinted cloud layer */
+body[data-theme="stoicism"] #clouds-layer {
+  display: block;
+  opacity: 0.1;
+  mix-blend-mode: screen;
+  filter: hue-rotate(195deg) saturate(4) brightness(1.4);
 }
 
-/* Atrium Background - dark, dimensional */
-.atrium-bg {
-  background: radial-gradient(ellipse at 50% 0%, #1a0a2e 0%, #0a0a14 50%, #060810 100%);
+/* ── The Dojo — Kurosawa Austerity ── */
+body[data-theme="tactical"] {
+  --bg:               #080808;
+  --bg-panel:         #111111;
+  --accent:           #c23b22;
+  --accent-dim:       rgba(194, 59, 34, 0.18);
+  --text:             #f0f0f0;
+  --text-muted:       rgba(240, 240, 240, 0.3);
+  --qt-fg:            rgba(240, 240, 240, 0.88);
+  --qt-muted:         rgba(240, 240, 240, 0.28);
+  --qt-nav:           rgba(240, 240, 240, 0.5);
+  --qt-decor:         rgba(240, 240, 240, 0.03);
+  --back-link:        rgba(194, 59, 34, 0.45);
+  --back-link-hover:  rgba(194, 59, 34, 0.9);
+  background-color:   var(--bg);
+  color:              var(--text);
+  overflow:           hidden;
 }
 
-/* Aether Background - seamless gradient behind all content */
-.aether-bg {
-  background: linear-gradient(
-    to bottom,
-    #7dd3fc 0%,      /* sky-300 */
-    #fdf2f8 50%,     /* pink-50 */
-    #f9a8d4 100%     /* pink-300 */
+body[data-theme="tactical"] #clouds-layer { display: none; }
+
+/* Film grain overlay */
+body[data-theme="tactical"]::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ── The Barrel — Terminal Grime ── */
+body[data-theme="cynicism"] {
+  --bg:               #000000;
+  --bg-panel:         #0a0a0a;
+  --accent:           #ffb000;
+  --accent-dim:       rgba(255, 176, 0, 0.12);
+  --text:             #ffb000;
+  --text-muted:       rgba(255, 176, 0, 0.32);
+  --qt-fg:            rgba(255, 176, 0, 0.88);
+  --qt-muted:         rgba(255, 176, 0, 0.28);
+  --qt-nav:           rgba(255, 176, 0, 0.5);
+  --qt-decor:         rgba(255, 176, 0, 0.04);
+  --back-link:        rgba(255, 176, 0, 0.35);
+  --back-link-hover:  rgba(255, 176, 0, 0.85);
+  background-color:   var(--bg);
+  color:              var(--text);
+  overflow:           hidden;
+}
+
+body[data-theme="cynicism"] #clouds-layer { display: none; }
+
+/* Phosphor scanlines */
+body[data-theme="cynicism"]::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 176, 0, 0.018) 0px,
+    rgba(255, 176, 0, 0.018) 1px,
+    transparent 1px,
+    transparent 3px
   );
 }
 
-/* Parallax Cloud Layer - CSS-generated clouds */
+/* ─────────────────────────────────────────
+   QUOTEGENERATOR: THEME-AWARE OVERRIDES
+───────────────────────────────────────── */
+
+body[data-theme="stoicism"] .quote-text,
+body[data-theme="tactical"]  .quote-text,
+body[data-theme="cynicism"]  .quote-text  { color: var(--qt-fg); }
+
+body[data-theme="stoicism"] .phil-label,
+body[data-theme="tactical"]  .phil-label,
+body[data-theme="cynicism"]  .phil-label  { color: var(--qt-muted); }
+
+body[data-theme="stoicism"] .nav-bold,
+body[data-theme="tactical"]  .nav-bold,
+body[data-theme="cynicism"]  .nav-bold    { color: var(--qt-nav); }
+
+body[data-theme="stoicism"] .nav-bold:hover,
+body[data-theme="tactical"]  .nav-bold:hover,
+body[data-theme="cynicism"]  .nav-bold:hover { color: var(--text); }
+
+body[data-theme="stoicism"] .scroll-hint,
+body[data-theme="tactical"]  .scroll-hint,
+body[data-theme="cynicism"]  .scroll-hint  { color: var(--qt-muted); }
+
+body[data-theme="stoicism"] .copy-btn,
+body[data-theme="tactical"]  .copy-btn,
+body[data-theme="cynicism"]  .copy-btn    { color: var(--qt-muted); }
+
+body[data-theme="stoicism"] .quote-deco,
+body[data-theme="tactical"]  .quote-deco,
+body[data-theme="cynicism"]  .quote-deco  { color: var(--qt-decor); }
+
+/* Cynicism: full monospace treatment */
+body[data-theme="cynicism"] .phil-label,
+body[data-theme="cynicism"] .nav-bold,
+body[data-theme="cynicism"] .scroll-hint {
+  font-family: ui-monospace, 'Courier New', monospace;
+  letter-spacing: 0.2em;
+}
+
+body[data-theme="cynicism"] section[data-philosopher] {
+  border-bottom: 1px solid rgba(255, 176, 0, 0.06);
+}
+
+/* Selection colors per theme */
+body[data-theme="stoicism"] ::selection { background: rgba(0, 229, 255, 0.25); }
+body[data-theme="tactical"]  ::selection { background: rgba(194, 59, 34, 0.35); }
+body[data-theme="cynicism"]  ::selection { background: rgba(255, 176, 0, 0.25); }
+
+/* ─────────────────────────────────────────
+   CLOUD LAYER  (stoicism only — others hidden above)
+───────────────────────────────────────── */
 .cloud {
   position: absolute;
   background: radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
@@ -53,114 +201,62 @@
   filter: blur(40px);
 }
 
-.cloud-1 {
-  width: 60vw;
-  height: 30vh;
-  top: 5%;
-  left: -10%;
-  animation: cloud-drift-1 60s ease-in-out infinite;
-}
+.cloud-1 { width: 60vw; height: 30vh; top: 5%;    left: -10%;  animation: cloud-drift-1 60s ease-in-out infinite; }
+.cloud-2 { width: 50vw; height: 25vh; top: 20%;   right: -15%; animation: cloud-drift-2 45s ease-in-out infinite; }
+.cloud-3 { width: 70vw; height: 35vh; bottom: 15%; left: 10%;  animation: cloud-drift-3 55s ease-in-out infinite; }
+.cloud-4 { width: 40vw; height: 20vh; bottom: 30%; right: 5%;  animation: cloud-drift-4 50s ease-in-out infinite; }
 
-.cloud-2 {
-  width: 50vw;
-  height: 25vh;
-  top: 20%;
-  right: -15%;
-  animation: cloud-drift-2 45s ease-in-out infinite;
-}
+@keyframes cloud-drift-1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(5vw,2vh)} }
+@keyframes cloud-drift-2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-4vw,3vh)} }
+@keyframes cloud-drift-3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(3vw,-2vh)} }
+@keyframes cloud-drift-4 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-5vw,-3vh)} }
 
-.cloud-3 {
-  width: 70vw;
-  height: 35vh;
-  bottom: 15%;
-  left: 10%;
-  animation: cloud-drift-3 55s ease-in-out infinite;
-}
+/* ─────────────────────────────────────────
+   SCROLLBARS
+───────────────────────────────────────── */
+::-webkit-scrollbar           { width: 6px; }
+::-webkit-scrollbar-track     { background: transparent; }
+::-webkit-scrollbar-thumb     { background: var(--accent, #d4af37); border-radius: 3px; opacity: 0.4; }
 
-.cloud-4 {
-  width: 40vw;
-  height: 20vh;
-  bottom: 30%;
-  right: 5%;
-  animation: cloud-drift-4 50s ease-in-out infinite;
-}
-
-/* Subtle ambient cloud drift animations */
-@keyframes cloud-drift-1 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(5vw, 2vh); }
-}
-
-@keyframes cloud-drift-2 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-4vw, 3vh); }
-}
-
-@keyframes cloud-drift-3 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(3vw, -2vh); }
-}
-
-@keyframes cloud-drift-4 {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-5vw, -3vh); }
-}
-
-/* 404 Page Glitch Effect */
-.glitch-container {
-  position: relative;
-}
-
-.glitch-image {
-  animation: glitch-base 2s infinite linear alternate-reverse;
-}
-
-.glitch-overlay-r {
-  mix-blend-mode: multiply;
-  filter: hue-rotate(90deg);
-  animation: glitch-r 0.3s infinite linear alternate-reverse;
-}
-
-.glitch-overlay-b {
-  mix-blend-mode: screen;
-  filter: hue-rotate(-90deg);
-  animation: glitch-b 0.4s infinite linear alternate-reverse;
-}
+/* ─────────────────────────────────────────
+   404 GLITCH EFFECT
+───────────────────────────────────────── */
+.glitch-image       { animation: glitch-base 2s infinite linear alternate-reverse; }
+.glitch-overlay-r   { mix-blend-mode: multiply; filter: hue-rotate(90deg);  animation: glitch-r 0.3s infinite linear alternate-reverse; }
+.glitch-overlay-b   { mix-blend-mode: screen;   filter: hue-rotate(-90deg); animation: glitch-b 0.4s infinite linear alternate-reverse; }
 
 @keyframes glitch-base {
-  0%, 100% {
-    clip-path: inset(0 0 0 0);
-    transform: translate(0);
-  }
-  20% {
-    clip-path: inset(10% 0 30% 0);
-    transform: translate(-2px, 1px);
-  }
-  40% {
-    clip-path: inset(40% 0 10% 0);
-    transform: translate(2px, -1px);
-  }
-  60% {
-    clip-path: inset(20% 0 50% 0);
-    transform: translate(-1px, 2px);
-  }
-  80% {
-    clip-path: inset(60% 0 5% 0);
-    transform: translate(1px, -2px);
-  }
+  0%,100% { clip-path:inset(0 0 0 0);    transform:translate(0); }
+  20%     { clip-path:inset(10% 0 30% 0); transform:translate(-2px,1px); }
+  40%     { clip-path:inset(40% 0 10% 0); transform:translate(2px,-1px); }
+  60%     { clip-path:inset(20% 0 50% 0); transform:translate(-1px,2px); }
+  80%     { clip-path:inset(60% 0 5% 0);  transform:translate(1px,-2px); }
 }
-
 @keyframes glitch-r {
-  0%, 100% { transform: translate(0); opacity: 0; }
-  20% { transform: translate(3px, -1px); opacity: 0.3; }
-  40% { transform: translate(-2px, 2px); opacity: 0.2; }
-  60% { transform: translate(4px, 1px); opacity: 0.4; }
-  80% { transform: translate(-3px, -2px); opacity: 0.1; }
+  0%,100%{transform:translate(0);opacity:0} 20%{transform:translate(3px,-1px);opacity:.3}
+  40%{transform:translate(-2px,2px);opacity:.2} 60%{transform:translate(4px,1px);opacity:.4}
+  80%{transform:translate(-3px,-2px);opacity:.1}
+}
+@keyframes glitch-b {
+  0%,100%{transform:translate(0);opacity:0} 25%{transform:translate(-3px,2px);opacity:.3}
+  50%{transform:translate(2px,-1px);opacity:.2} 75%{transform:translate(-4px,-1px);opacity:.4}
 }
 
-@keyframes glitch-b {
-  0%, 100% { transform: translate(0); opacity: 0; }
-  25% { transform: translate(-3px, 2px); opacity: 0.3; }
-  50% { transform: translate(2px, -1px); opacity: 0.2; }
-  75% { transform: translate(-4px, -1px); opacity: 0.4; }
+/* ─────────────────────────────────────────
+   NAVIGATOR SELECTS  (shared base, theme overrides above)
+───────────────────────────────────────── */
+.nav-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  text-align-last: center;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
 }
+.nav-select:focus { outline: none; }

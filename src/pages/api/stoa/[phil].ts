@@ -97,6 +97,18 @@ export const GET: APIRoute = ({ params, url }) => {
 
   let entries = [...allEntries];
 
+  // Musashi entries carry no work field — synthesize from book number
+  if (phil === 'musashi') {
+    const scrolls: Record<number, string> = {
+      1: 'The Book of Five Rings (The Earth Scroll)',
+      2: 'The Book of Five Rings (The Water Scroll)',
+      3: 'The Book of Five Rings (The Fire Scroll)',
+      4: 'The Book of Five Rings (The Wind Scroll)',
+      5: 'The Book of Five Rings (The Ether Scroll)',
+    };
+    entries = entries.map(e => ({ ...e, work: scrolls[e.book as number] ?? 'The Book of Five Rings' }));
+  }
+
   if (work)  entries = entries.filter(e => e.work === work);
   if (book)  entries = entries.filter(e => String(e.book) === book);
   if (verse) entries = entries.filter(e => String(e.verse ?? e.chapter ?? e.letter) === verse);

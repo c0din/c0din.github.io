@@ -2,10 +2,12 @@
 import Layout from '../../layouts/Layout.astro';
 import QuoteGenerator from '../../components/QuoteGenerator.astro';
 
-const schools: Record<string, { title: string; subtitle: string; ids: string[] }> = {
-  stoicism: { title: 'The Porch',  subtitle: 'Stoicism',  ids: ['marcus', 'epictetus', 'seneca'] },
-  cynicism: { title: 'The Barrel', subtitle: 'Cynicism',  ids: ['diogenes'] },
-  tactical: { title: 'The Dojo',   subtitle: 'Tactical',  ids: ['musashi'] },
+type Theme = 'stoicism' | 'cynicism' | 'tactical';
+
+const schools: Record<string, { title: string; subtitle: string; ids: string[]; theme: Theme }> = {
+  stoicism: { title: 'The Porch',  subtitle: 'Stoicism', ids: ['marcus', 'epictetus', 'seneca'], theme: 'stoicism' },
+  cynicism: { title: 'The Barrel', subtitle: 'Cynicism', ids: ['diogenes'],                       theme: 'cynicism' },
+  tactical: { title: 'The Dojo',   subtitle: 'Tactical', ids: ['musashi'],                        theme: 'tactical' },
 };
 
 const { name } = Astro.params;
@@ -14,15 +16,30 @@ const school = schools[name as string];
 if (!school) return Astro.redirect('/404');
 ---
 
-<Layout title={`c0din | ${school.subtitle}`}>
-  <a
-    href="/"
-    class="fixed top-5 left-5 z-50 text-[10px] uppercase tracking-[0.4em] font-bold text-slate-900/30 hover:text-slate-900/70 transition-colors"
-  >
-    ← All Schools
-  </a>
+<Layout title={`c0din | ${school.subtitle}`} theme={school.theme}>
+  <a href="/" class="atrium-back">← The Atrium</a>
 
   <main class="min-h-screen flex items-center justify-center">
     <QuoteGenerator ids={school.ids} />
   </main>
 </Layout>
+
+<style>
+  .atrium-back {
+    position: fixed;
+    top: 1.25rem;
+    left: 1.25rem;
+    z-index: 50;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--back-link, rgba(255, 255, 255, 0.25));
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .atrium-back:hover {
+    color: var(--back-link-hover, rgba(255, 255, 255, 0.7));
+  }
+</style>
