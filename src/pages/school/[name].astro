@@ -2,14 +2,15 @@
 import Layout from '../../layouts/Layout.astro';
 import QuoteGenerator from '../../components/QuoteGenerator.astro';
 
-type Theme = 'stoicism' | 'cynicism' | 'tactical' | 'athanor' | 'stream';
+type Theme = 'stoicism' | 'cynicism' | 'tactical' | 'athanor' | 'stream' | 'dialectic';
 
 const schools: Record<string, { title: string; subtitle: string; ids: string[]; theme: Theme }> = {
   stoicism: { title: 'The Porch',   subtitle: 'Stoicism', ids: ['marcus', 'epictetus', 'seneca'], theme: 'stoicism' },
   cynicism: { title: 'The Barrel',  subtitle: 'Cynicism', ids: ['diogenes'],                      theme: 'cynicism' },
   tactical: { title: 'The Dojo',    subtitle: 'Tactical', ids: ['musashi'],                       theme: 'tactical' },
-  athanor:  { title: 'The Athanor', subtitle: 'Depth',    ids: ['jung'],                          theme: 'athanor'  },
-  stream:   { title: 'The Stream',  subtitle: 'Taoism',   ids: ['laozi'],                         theme: 'stream'   },
+  athanor:  { title: 'The Athanor',     subtitle: 'Depth',     ids: ['jung'],   theme: 'athanor'  },
+  stream:   { title: 'The Stream',      subtitle: 'Taoism',    ids: ['laozi'],  theme: 'stream'   },
+  dialectic: { title: 'The Beth Midrash', subtitle: 'Dialectic', ids: ['sages'], theme: 'dialectic' },
 };
 
 const { name } = Astro.params;

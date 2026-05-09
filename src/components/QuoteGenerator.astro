@@ -14,7 +14,8 @@ interface PhilosopherConfig {
   name: string;
   title: string;
   glow: string;
-  image: ImageMetadata;
+  image?: ImageMetadata;
+  symbol?: string;
 }
 
 const catalog: PhilosopherConfig[] = [
@@ -25,6 +26,7 @@ const catalog: PhilosopherConfig[] = [
   { id: 'musashi',   name: 'Miyamoto Musashi',  title: 'the Warrior',  image: musashiImg,   glow: 'rgba(0, 255, 120, 0.5)' },
   { id: 'jung',      name: 'Carl Jung',         title: 'the Analyst',  image: jungImg,      glow: 'rgba(180, 100, 255, 0.5)' },
   { id: 'laozi',     name: 'Laozi',             title: 'the Sage',     image: laoziImg,     glow: 'rgba(100, 220, 160, 0.5)' },
+  { id: 'sages',     name: 'The Sages',         title: 'of the Assembly', glow: 'rgba(184, 115, 51, 0.6)', symbol: 'א' },
 ];
 
 interface Props {
@@ -42,13 +44,22 @@ const philosophers = ids
     <section class="h-screen w-full flex flex-col items-center justify-center snap-start relative overflow-hidden px-6 pb-20" data-philosopher={phil.id}>
 
       <div class="bust-trigger cursor-pointer transition-all duration-700 active:scale-95 group z-20">
-        <Image
-          src={phil.image}
-          alt={phil.name}
-          class="w-56 md:w-72 h-auto transition-transform duration-700 group-hover:scale-105"
-          style={`filter: drop-shadow(0 0 15px ${phil.glow})`}
-          width={288}
-        />
+        {phil.image ? (
+          <Image
+            src={phil.image}
+            alt={phil.name}
+            class="w-56 md:w-72 h-auto transition-transform duration-700 group-hover:scale-105"
+            style={`filter: drop-shadow(0 0 15px ${phil.glow})`}
+            width={288}
+          />
+        ) : (
+          <div
+            class="w-56 md:w-72 h-56 md:h-72 flex items-center justify-center text-7xl md:text-9xl select-none transition-transform duration-700 group-hover:scale-105"
+            style={`filter: drop-shadow(0 0 24px ${phil.glow}); color: ${phil.glow}`}
+          >
+            {phil.symbol ?? phil.name[0]}
+          </div>
+        )}
       </div>
 
       <div class="z-20 text-center mt-4">

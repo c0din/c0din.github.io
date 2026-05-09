@@ -1,0 +1,309 @@
+{
+  "metadata": {
+    "works": ["Pirkei Avot (Ethics of the Fathers)"],
+    "author": "The Sages of the Assembly",
+    "school": "dialectic",
+    "translations": {
+      "standard": "Standard English Translation"
+    },
+    "defaultTranslation": "standard"
+  },
+  "entries": [
+    {
+      "book": "Chapter 1",
+      "verse": 1,
+      "text": {
+        "standard": "Moses received the Torah from Sinai and transmitted it to Joshua; Joshua to the Elders; the Elders to the Prophets; and the Prophets transmitted it to the Men of the Great Assembly. They said three things: Be deliberate in judgment; raise up many disciples; and make a fence around the Torah."
+      },
+      "tags": ["transmission", "deliberation", "education", "tradition"]
+    },
+    {
+      "book": "Chapter 1",
+      "verse": 2,
+      "text": {
+        "standard": "Shimon the Just was of the last survivors of the Great Assembly. He used to say: On three things the world stands — on Torah, on divine service, and on deeds of loving kindness."
+      },
+      "tags": ["community", "service", "lovingkindness", "world"]
+    },
+    {
+      "book": "Chapter 1",
+      "verse": 4,
+      "text": {
+        "standard": "Yose ben Yoezer of Tzraidah says: Let your home be a meeting place for sages; sit in the dust of their feet and drink their words thirstily."
+      },
+      "tags": ["study", "humility", "learning", "mentorship"]
+    },
+    {
+      "book": "Chapter 1",
+      "verse": 6,
+      "text": {
+        "standard": "Yehoshua ben Perachyah says: Provide yourself with a teacher; get yourself a companion; and judge every person charitably."
+      },
+      "tags": ["mentorship", "friendship", "charity", "judgment"]
+    },
+    {
+      "book": "Chapter 1",
+      "verse": 12,
+      "text": {
+        "standard": "Hillel says: Be of the disciples of Aaron — loving peace and pursuing peace; loving people and drawing them close to Torah."
+      },
+      "tags": ["peace", "love", "community", "action"]
+    },
+    {
+      "book": "Chapter 1",
+      "verse": 13,
+      "text": {
+        "standard": "He [Hillel] used to say: A name made great is a name destroyed; one who does not increase will decrease; one who does not learn deserves to die; and one who makes use of the crown will fade."
+      },
+      "tags": ["humility", "growth", "learning", "mortality"]
+    },
+    {
+      "book": "Chapter 1",
+      "verse": 14,
+      "text": {
+        "standard": "He [Hillel] used to say: If I am not for myself, who will be for me? But if I am only for myself, what am I? And if not now, when?"
+      },
+      "tags": ["self-reliance", "community", "action", "urgency"]
+    },
+    {
+      "book": "Chapter 1",
+      "verse": 15,
+      "text": {
+        "standard": "Shammai says: Make your Torah study a fixed practice; say little and do much; and greet every person with a pleasant countenance."
+      },
+      "tags": ["discipline", "action", "presence", "kindness"]
+    },
+    {
+      "book": "Chapter 1",
+      "verse": 18,
+      "text": {
+        "standard": "Shimon ben Gamliel says: On three things the world endures — on justice, on truth, and on peace."
+      },
+      "tags": ["justice", "truth", "peace", "world"]
+    },
+    {
+      "book": "Chapter 2",
+      "verse": 1,
+      "text": {
+        "standard": "Rabbi [Judah HaNasi] says: Which is the right path a person should choose? That which is honorable for the one who does it and which also brings honor from others. Be as scrupulous with a light commandment as with a weighty one."
+      },
+      "tags": ["virtue", "honor", "ethics", "discernment"]
+    },
+    {
+      "book": "Chapter 2",
+      "verse": 4,
+      "text": {
+        "standard": "He [Hillel] used to say: Do not trust in yourself until the day of your death; do not judge your fellow man until you have reached his place; do not say something that cannot be immediately understood, for it will be understood in the end; and do not say 'When I have time I will study' — lest you never have time."
+      },
+      "tags": ["humility", "judgment", "study", "procrastination"]
+    },
+    {
+      "book": "Chapter 2",
+      "verse": 6,
+      "text": {
+        "standard": "He [Hillel] used to say: An ignorant person cannot be pious; a shy person cannot learn; an impatient person cannot teach; nor does anyone immersed in business grow wise. In a place where there are no men, strive to be a man."
+      },
+      "tags": ["wisdom", "learning", "character", "leadership"]
+    },
+    {
+      "book": "Chapter 2",
+      "verse": 7,
+      "text": {
+        "standard": "He [Hillel] saw a skull floating upon the water. He said to it: Because you drowned others, they drowned you. And those who drowned you will ultimately be drowned."
+      },
+      "tags": ["karma", "justice", "consequence", "causality"]
+    },
+    {
+      "book": "Chapter 2",
+      "verse": 10,
+      "text": {
+        "standard": "Rabbi Eliezer says: Let the honor of your fellow man be as dear to you as your own. Be not easily provoked to anger. Repent one day before your death. Warm yourself by the fire of the sages, but be careful not to be burned by their glowing coals."
+      },
+      "tags": ["honor", "anger", "repentance", "wisdom"]
+    },
+    {
+      "book": "Chapter 2",
+      "verse": 14,
+      "text": {
+        "standard": "Rabbi Shimon says: When you pray, do not make your prayer a fixed routine, but rather a plea for mercy and supplication before the Almighty."
+      },
+      "tags": ["prayer", "sincerity", "discipline", "presence"]
+    },
+    {
+      "book": "Chapter 2",
+      "verse": 15,
+      "text": {
+        "standard": "Rabbi Tarfon says: The day is short, the work is much, the workers are lazy, the reward is great, and the Master is pressing."
+      },
+      "tags": ["urgency", "discipline", "duty", "mortality"]
+    },
+    {
+      "book": "Chapter 2",
+      "verse": 16,
+      "text": {
+        "standard": "He [Rabbi Tarfon] used to say: It is not your duty to finish the work, but neither are you at liberty to neglect it. If you have learned much Torah, you will be given much reward — and the Employer can be trusted to pay your wages."
+      },
+      "tags": ["duty", "perseverance", "action", "reward"]
+    },
+    {
+      "book": "Chapter 3",
+      "verse": 1,
+      "text": {
+        "standard": "Akavya ben Mahalalel says: Reflect upon three things and you will not come to sin — know from where you came, to where you are going, and before Whom you will give account. From where you came: from a putrid drop. To where you are going: to a place of dust, worms, and maggots. Before Whom: before the King of kings."
+      },
+      "tags": ["mortality", "accountability", "humility", "origins"]
+    },
+    {
+      "book": "Chapter 3",
+      "verse": 2,
+      "text": {
+        "standard": "Rabbi Chanina, the Deputy High Priest, says: Pray for the welfare of the government, for were it not for the fear of it, man would swallow his fellow alive."
+      },
+      "tags": ["government", "order", "society", "human nature"]
+    },
+    {
+      "book": "Chapter 3",
+      "verse": 9,
+      "text": {
+        "standard": "Rabbi Chanina ben Dosa says: Whoever is pleasing to his fellow men is pleasing to God. But whoever is not pleasing to his fellow men is not pleasing to God."
+      },
+      "tags": ["community", "virtue", "divine", "relationships"]
+    },
+    {
+      "book": "Chapter 3",
+      "verse": 14,
+      "text": {
+        "standard": "He [Rabbi Akiva] used to say: Beloved is man, for he was created in the image of God. It is a sign of even greater love that he was informed of this, as it is written: 'For in the image of God did He make man.'"
+      },
+      "tags": ["dignity", "humanity", "love", "creation"]
+    },
+    {
+      "book": "Chapter 3",
+      "verse": 17,
+      "text": {
+        "standard": "Rabbi Elazar ben Azariah says: Without Torah there is no proper conduct; without proper conduct there is no Torah. Without wisdom there is no fear of God; without fear of God there is no wisdom. Without knowledge there is no understanding; without understanding there is no knowledge. Without bread there is no Torah; without Torah there is no bread."
+      },
+      "tags": ["interdependence", "wisdom", "knowledge", "study"]
+    },
+    {
+      "book": "Chapter 4",
+      "verse": 1,
+      "text": {
+        "standard": "Ben Zoma says: Who is wise? One who learns from every person. Who is mighty? One who subdues his evil inclination. Who is rich? One who is satisfied with his portion. Who is honored? One who honors all people."
+      },
+      "tags": ["wisdom", "strength", "contentment", "honor"]
+    },
+    {
+      "book": "Chapter 4",
+      "verse": 2,
+      "text": {
+        "standard": "Ben Azzai says: Run to perform even a minor commandment and flee from sin; for one commandment leads to another commandment, and one sin leads to another sin — for the reward of a commandment is a commandment, and the reward of a sin is a sin."
+      },
+      "tags": ["virtue", "discipline", "consequence", "momentum"]
+    },
+    {
+      "book": "Chapter 4",
+      "verse": 3,
+      "text": {
+        "standard": "He [Ben Azzai] used to say: Do not despise any person and do not discount any thing, for there is no person who has not his hour, and there is no thing that has not its place."
+      },
+      "tags": ["respect", "timing", "potential", "humility"]
+    },
+    {
+      "book": "Chapter 4",
+      "verse": 5,
+      "text": {
+        "standard": "Rabbi Yochanan HaSandlar says: Every assembly that is for the sake of Heaven will in the end endure; but one that is not for the sake of Heaven will in the end not endure."
+      },
+      "tags": ["community", "purpose", "integrity", "longevity"]
+    },
+    {
+      "book": "Chapter 4",
+      "verse": 14,
+      "text": {
+        "standard": "Rabbi Meir says: Reduce your involvement in business and engage in Torah. Be humble before every person. If you neglect Torah, many distractions will appear before you; but if you have toiled in Torah, great is the reward waiting for you."
+      },
+      "tags": ["study", "humility", "discipline", "focus"]
+    },
+    {
+      "book": "Chapter 4",
+      "verse": 17,
+      "text": {
+        "standard": "Rabbi Shimon says: There are three crowns — the crown of Torah, the crown of priesthood, and the crown of royalty; but the crown of a good name surpasses them all."
+      },
+      "tags": ["reputation", "virtue", "honor", "character"]
+    },
+    {
+      "book": "Chapter 4",
+      "verse": 21,
+      "text": {
+        "standard": "Rabbi Eliezer HaKapar says: Jealousy, lust, and the desire for honor remove a person from the world."
+      },
+      "tags": ["detachment", "vices", "character", "ego"]
+    },
+    {
+      "book": "Chapter 5",
+      "verse": 7,
+      "text": {
+        "standard": "Seven things are characteristic of a wise man: He does not speak before one who is greater in wisdom. He does not interrupt his fellow's words. He is not hasty to answer. He asks what is relevant and answers to the point. He speaks on the first thing first and the last thing last. Regarding what he has not heard, he says 'I have not heard.' And he acknowledges the truth."
+      },
+      "tags": ["wisdom", "speech", "humility", "learning"]
+    },
+    {
+      "book": "Chapter 5",
+      "verse": 10,
+      "text": {
+        "standard": "There are four character types: One who says 'What is mine is mine and what is yours is yours' — this is an average type. 'What is mine is yours and what is yours is mine' — this is an unlearned person. 'What is mine is yours and what is yours is yours' — this is pious. 'What is mine is mine and what is yours is mine' — this is wicked."
+      },
+      "tags": ["character", "generosity", "ethics", "property"]
+    },
+    {
+      "book": "Chapter 5",
+      "verse": 13,
+      "text": {
+        "standard": "There are four types who give charity: One who gives but does not want others to give — he begrudges others. One who wants others to give but does not give himself — he begrudges himself. One who gives and wants others to give — this is pious. One who does not give and does not want others to give — this is wicked."
+      },
+      "tags": ["charity", "generosity", "virtue", "community"]
+    },
+    {
+      "book": "Chapter 5",
+      "verse": 22,
+      "text": {
+        "standard": "Ben Bag Bag says: Delve into it [the Torah] and continue to delve, for everything is in it. See through it; grow old and worn in it and do not move away from it — for you have no better portion than it."
+      },
+      "tags": ["study", "wisdom", "devotion", "depth"]
+    },
+    {
+      "book": "Chapter 5",
+      "verse": 23,
+      "text": {
+        "standard": "Ben Hey Hey says: According to the effort is the reward."
+      },
+      "tags": ["effort", "reward", "growth", "discipline"]
+    },
+    {
+      "book": "Chapter 6",
+      "verse": 1,
+      "text": {
+        "standard": "Rabbi Meir says: Whoever occupies himself with Torah for its own sake merits many things. The entire world is worthy to exist for his sake. He is called friend, beloved, lover of God, lover of mankind — one who brings joy to God and one who brings joy to mankind."
+      },
+      "tags": ["study", "virtue", "community", "love"]
+    },
+    {
+      "book": "Chapter 6",
+      "verse": 2,
+      "text": {
+        "standard": "Rabbi Yehoshua ben Levi says: Every day a divine voice goes forth from Mount Horeb proclaiming: 'Woe to humanity for the affront to the Torah.' For whoever does not engage in Torah study is called rebuked."
+      },
+      "tags": ["study", "urgency", "revelation", "discipline"]
+    },
+    {
+      "book": "Chapter 6",
+      "verse": 6,
+      "text": {
+        "standard": "The Torah is greater than priesthood or royalty — for royalty is acquired with thirty virtues, the priesthood with twenty-four, and the Torah is acquired with forty-eight ways: by study, attentive listening, ordered speech, by an understanding heart, by awe, by reverence, by humility, by joy, by ministering to sages, by attachment to colleagues, by sharp discussion with students, by deliberation, by Scripture, by Mishnah, by limited business activity, by limited pleasure, by limited sleep, by limited conversation, by limited worldly affairs, by patience, by a good heart, by faith in the sages, and by acceptance of suffering."
+      },
+      "tags": ["study", "wisdom", "virtue", "Torah", "discipline"]
+    }
+  ]
+}

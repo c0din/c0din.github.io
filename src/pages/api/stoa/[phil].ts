@@ -7,6 +7,7 @@ import diogenes from '../../../../public/assets/stoa/diogenes.json';
 import musashi from '../../../../public/assets/stoa/musashi.json';
 import jung from '../../../../public/assets/stoa/jung.json';
 import daodejing from '../../../../public/assets/stoa/daodejing.json';
+import pirkeiAvot from '../../../../public/assets/stoa/pirkei-avot.json';
 
 type CanonicalData = {
   metadata: {
@@ -55,6 +56,7 @@ const dataMap: Record<string, CanonicalData> = {
   musashi:   normalizeData(musashi,     'tactical'),
   jung:      normalizeData(jung,        'athanor'),
   laozi:     normalizeData(daodejing,   'stream'),
+  sages:     normalizeData(pirkeiAvot,  'dialectic'),
 };
 
 // All philosophers indexed by school for the /api/stoa/school?name= pattern
@@ -64,6 +66,7 @@ const schoolIndex: Record<string, string[]> = {
   tactical: ['musashi'],
   athanor:  ['jung'],
   stream:   ['laozi'],
+  dialectic: ['sages'],
 };
 
 export const GET: APIRoute = ({ params, url }) => {

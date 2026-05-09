@@ -12,6 +12,7 @@ const { theme } = Astro.props;
   <div class="bg-layer cynicism-scanlines"></div>
   <div class="bg-layer athanor-vignette"></div>
   <div class="bg-layer stream-mist"></div>
+  <div class="bg-layer dialectic-glow"></div>
 </div>
 
 <style>
@@ -94,6 +95,16 @@ const { theme } = Astro.props;
   }
 
   #aether-layer[data-theme="stream"] .stream-mist { opacity: 1; }
+
+  /* ── Dialectic: warm candlelight from below, lapis void above ── */
+  .dialectic-glow {
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 110%, rgba(184, 115, 51, 0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% -10%, rgba(21, 30, 61, 0.6)   0%, transparent 50%);
+  }
+
+  #aether-layer[data-theme="dialectic"] .dialectic-glow { opacity: 1; }
 </style>
 
 <script>
