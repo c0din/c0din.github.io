@@ -104,49 +104,56 @@ body[data-theme="tactical"]  .quote-text,
 body[data-theme="cynicism"]  .quote-text,
 body[data-theme="athanor"]   .quote-text,
 body[data-theme="stream"]    .quote-text,
-body[data-theme="dialectic"] .quote-text  { color: var(--qt-fg); }
+body[data-theme="dialectic"] .quote-text,
+body[data-theme="clearing"]  .quote-text  { color: var(--qt-fg); }
 
 body[data-theme="stoicism"]  .phil-label,
 body[data-theme="tactical"]  .phil-label,
 body[data-theme="cynicism"]  .phil-label,
 body[data-theme="athanor"]   .phil-label,
 body[data-theme="stream"]    .phil-label,
-body[data-theme="dialectic"] .phil-label  { color: var(--qt-muted); }
+body[data-theme="dialectic"] .phil-label,
+body[data-theme="clearing"]  .phil-label  { color: var(--qt-muted); }
 
 body[data-theme="stoicism"]  .nav-bold,
 body[data-theme="tactical"]  .nav-bold,
 body[data-theme="cynicism"]  .nav-bold,
 body[data-theme="athanor"]   .nav-bold,
 body[data-theme="stream"]    .nav-bold,
-body[data-theme="dialectic"] .nav-bold    { color: var(--qt-nav); }
+body[data-theme="dialectic"] .nav-bold,
+body[data-theme="clearing"]  .nav-bold    { color: var(--qt-nav); }
 
 body[data-theme="stoicism"]  .nav-bold:hover,
 body[data-theme="tactical"]  .nav-bold:hover,
 body[data-theme="cynicism"]  .nav-bold:hover,
 body[data-theme="athanor"]   .nav-bold:hover,
 body[data-theme="stream"]    .nav-bold:hover,
-body[data-theme="dialectic"] .nav-bold:hover { color: var(--text); }
+body[data-theme="dialectic"] .nav-bold:hover,
+body[data-theme="clearing"]  .nav-bold:hover { color: var(--text); }
 
 body[data-theme="stoicism"]  .scroll-hint,
 body[data-theme="tactical"]  .scroll-hint,
 body[data-theme="cynicism"]  .scroll-hint,
 body[data-theme="athanor"]   .scroll-hint,
 body[data-theme="stream"]    .scroll-hint,
-body[data-theme="dialectic"] .scroll-hint  { color: var(--qt-muted); }
+body[data-theme="dialectic"] .scroll-hint,
+body[data-theme="clearing"]  .scroll-hint  { color: var(--qt-muted); }
 
 body[data-theme="stoicism"]  .copy-btn,
 body[data-theme="tactical"]  .copy-btn,
 body[data-theme="cynicism"]  .copy-btn,
 body[data-theme="athanor"]   .copy-btn,
 body[data-theme="stream"]    .copy-btn,
-body[data-theme="dialectic"] .copy-btn    { color: var(--qt-muted); }
+body[data-theme="dialectic"] .copy-btn,
+body[data-theme="clearing"]  .copy-btn    { color: var(--qt-muted); }
 
 body[data-theme="stoicism"]  .quote-deco,
 body[data-theme="tactical"]  .quote-deco,
 body[data-theme="cynicism"]  .quote-deco,
 body[data-theme="athanor"]   .quote-deco,
 body[data-theme="stream"]    .quote-deco,
-body[data-theme="dialectic"] .quote-deco  { color: var(--qt-decor); }
+body[data-theme="dialectic"] .quote-deco,
+body[data-theme="clearing"]  .quote-deco  { color: var(--qt-decor); }
 
 /* Cynicism: full monospace treatment */
 body[data-theme="cynicism"] .phil-label,
@@ -227,6 +234,27 @@ body[data-theme="dialectic"] {
 }
 
 body[data-theme="dialectic"] #clouds-layer { display: none; }
+
+/* ── The Clearing — Transcendentalist Dawn ── */
+body[data-theme="clearing"] {
+  --bg:               #060d06;
+  --bg-panel:         #0d1a0d;
+  --accent:           #a8c04a;
+  --accent-dim:       rgba(168, 192, 74, 0.18);
+  --text:             #e8f0d0;
+  --text-muted:       rgba(232, 240, 208, 0.35);
+  --qt-fg:            rgba(232, 240, 208, 0.9);
+  --qt-muted:         rgba(232, 240, 208, 0.3);
+  --qt-nav:           rgba(232, 240, 208, 0.55);
+  --qt-decor:         rgba(168, 192, 74, 0.06);
+  --back-link:        rgba(168, 192, 74, 0.35);
+  --back-link-hover:  rgba(168, 192, 74, 0.85);
+  background-color:   var(--bg);
+  color:              var(--text);
+  overflow:           hidden;
+}
+
+body[data-theme="clearing"] #clouds-layer { display: none; }
 
 /* ─────────────────────────────────────────
    CLOUD LAYER  (stoicism only — others hidden above)

@@ -13,6 +13,7 @@ const { theme } = Astro.props;
   <div class="bg-layer athanor-vignette"></div>
   <div class="bg-layer stream-mist"></div>
   <div class="bg-layer dialectic-glow"></div>
+  <div class="bg-layer clearing-light"></div>
 </div>
 
 <style>
@@ -105,6 +106,17 @@ const { theme } = Astro.props;
   }
 
   #aether-layer[data-theme="dialectic"] .dialectic-glow { opacity: 1; }
+
+  /* ── The Clearing: dappled dawn light through forest canopy ── */
+  .clearing-light {
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% -5%,  rgba(168, 192, 74, 0.12) 0%, transparent 55%),
+      radial-gradient(ellipse at 20% 60%,  rgba(90, 160, 80, 0.07)  0%, transparent 45%),
+      radial-gradient(ellipse at 80% 80%,  rgba(120, 180, 60, 0.05) 0%, transparent 40%);
+  }
+
+  #aether-layer[data-theme="clearing"] .clearing-light { opacity: 1; }
 </style>
 
 <script>
